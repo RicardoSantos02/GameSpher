@@ -1,6 +1,6 @@
 # Satochi
 
-<h6>Way of retribution</h6>
+
 
 # Legend of zelda Majora's Mask
 
