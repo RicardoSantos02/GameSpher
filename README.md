@@ -1,7 +1,7 @@
-# # # Satochi
+# Satochi
 
-Way of retribution
+<h6>Way of retribution</h6>
 
 # Ricardo
 
-Legend of zelda
+<h5>Legend of zelda</h5>
