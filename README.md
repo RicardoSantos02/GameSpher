@@ -1,6 +1,6 @@
 # Satochi
 
-
+O Satoshi nada mais é que a representação de uma parte menor do Bitcoin, ou seja, ele é uma fração da criptomoeda. Para entender melhor o conceito, é possível fazer uma analogia com a moeda que usamos no Brasil: o centavo é o nome dado para a fração do real, e a proporção é de 100 centavos para 1 real.
 
 # Legend of zelda Majora's Mask
 
