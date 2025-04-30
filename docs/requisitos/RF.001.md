@@ -1,5 +1,7 @@
-# Cadastro de Ala
+# GameSpher – Cadastro de Produtos
 
-*"Como"* Responsavel da Ala  
-*"Quero"* Registrar as informações presentes na Ala  
-*"Para"* Conseguir gerenciar a estrutura das Alas presentes no andar  
+### 1. Cadastro de Jogos Físicos e Digitais
+
+*"Como"* administrador da GameSpher  
+*"Quero"* cadastrar títulos físicos e digitais para diferentes plataformas  
+*"Para"* oferecer uma variedade de jogos, incluindo lançamentos e clássicos, aos clientes  
