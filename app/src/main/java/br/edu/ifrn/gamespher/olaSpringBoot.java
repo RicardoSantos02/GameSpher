@@ -1,16 +1,14 @@
-package br.edu.br.ifrn.gamespher;
-
+package br.edu.ifrn.gamespher;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-public class olaSpringBoot {
-    
-   @GetMapping("\")
-   public String index() {
-       return "Olá Spring Boot!";
-   }
 
+public class OlaSpringBoot {
+@GetMapping("/")
+public String index(){
+    return "olá spring boot";
+}
 
 }
