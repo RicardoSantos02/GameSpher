@@ -18,7 +18,7 @@ VALUES
   (
     'Maria Oliveira',
     'maria.oliveira@email.com',
-    NULL,
+    '(31) 91234-5678',
     '987.654.321-00',
     'Pessoa Física'
   );
