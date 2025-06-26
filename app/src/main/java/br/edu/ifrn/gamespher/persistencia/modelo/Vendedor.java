@@ -1,4 +1,4 @@
-package br.edu.ifrn.gamespher.modelo;
+package br.edu.ifrn.gamespher.persistencia.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
