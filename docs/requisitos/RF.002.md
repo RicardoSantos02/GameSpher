@@ -1,7 +1,7 @@
 # GameSpher – Cadastro de Produtos
 
-### 2. Cadastro de Consoles e Acessórios
+## 2. Cadastro de Jogos Físicos e Digitais
 
-*"Como"* responsável pelo catálogo de produtos  
-*"Quero"* adicionar consoles e acessórios como controles e headsets  
-*"Para"* disponibilizar os equipamentos essenciais para uma experiência completa de jogo  
+*"Como"* administrador da GameSpher  
+*"Quero"* cadastrar títulos físicos e digitais para diferentes plataformas  
+*"Para"* oferecer uma variedade de jogos, incluindo lançamentos e clássicos, aos clientes  

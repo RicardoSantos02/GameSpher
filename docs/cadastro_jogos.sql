@@ -1,4 +1,4 @@
--- Requisito 1: Cadastro de Jogos Físicos e Digitais
+-- Requisito 2: Cadastro de Jogos Físicos e Digitais
 CREATE TABLE jogos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,

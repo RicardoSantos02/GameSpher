@@ -1,7 +1,7 @@
 # GameSpher – Cadastro de Produtos
 
-### 3. Cadastro de Periféricos para PC
+## 3. Cadastro de Consoles, Acessórios e Periféricos para PC
 
-*"Como"* administrador do marketplace  
-*"Quero"* registrar periféricos como teclados, mouses e cadeiras gamer  
-*"Para"* atender às necessidades dos jogadores de PC com equipamentos de alta performance  
+*"Como"* responsável pelo catálogo de produtos  
+*"Quero"* adicionar consoles, acessórios (controles, headsets) e periféricos para PC (teclados, mouses, cadeiras gamer)  
+*"Para"* disponibilizar uma variedade completa de equipamentos essenciais para todas as plataformas de jogo  

@@ -1,7 +1,7 @@
 # GameSpher – Cadastro de Produtos
 
-### 1. Cadastro de Jogos Físicos e Digitais
+## 1. Cadastro de Vendedores
 
 *"Como"* administrador da GameSpher  
-*"Quero"* cadastrar títulos físicos e digitais para diferentes plataformas  
-*"Para"* oferecer uma variedade de jogos, incluindo lançamentos e clássicos, aos clientes  
+*"Quero"* cadastrar vendedores com seus dados pessoais e empresariais  
+*"Para"* gerenciar quem vende os produtos na plataforma  
