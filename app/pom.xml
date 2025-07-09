@@ -1,70 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<!-- Versão do modelo POM usado pelo Maven -->
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
-        <relativePath/>
-    </parent>
+	<!-- Herda configurações do Spring Boot Starter Parent -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.0</version> <!-- Versão do Spring Boot usada -->
+		<relativePath /> <!-- Procura o parent no repositório local/online -->
+	</parent>
 
-    <groupId>br.edu.ifrn</groupId>
-    <artifactId>gamespher</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>GameSpher</name>
-    <description>Projeto Spring Boot GameSpher</description>
+	<!-- Identificação do seu projeto -->
+	<groupId>br.edu.ifrn</groupId>
+	<artifactId>gamespher</artifactId> <!-- Seu projeto -->
+	<version>0.0.1-SNAPSHOT</version> <!-- Versão inicial -->
+	<name>GameSpher</name>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
+	<!-- Propriedades do projeto -->
+	<properties>
+		<java.version>17</java.version> <!-- Versão do Java usada -->
+	</properties>
 
-    <dependencies>
-        <!-- Spring Boot Actuator -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+	<!-- Dependências do projeto -->
+	<dependencies>
+		<!-- Actuator: monitoramento da aplicação -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
-        <!-- Spring Web MVC -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+		<!-- Spring Web MVC para construir APIs e aplicações web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
-        <!-- Spring Data JPA -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+		<!-- Spring Data JPA para acesso a banco de dados -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 
-        <!-- H2 Database for runtime -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+		<!-- Banco de dados em memória H2 para desenvolvimento/testes -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope> <!-- Só roda em tempo de execução -->
+		</dependency>
 
-        <!-- Lombok: usado para reduzir boilerplate (getters/setters, construtores, etc) -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.38</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+		<!-- Thymeleaf: motor de templates para views HTML -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
-    <build>
-        <plugins>
-            <!-- Plugin para empacotamento Spring Boot -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+		<!-- Validação via Bean Validation (JSR 380) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- Lombok: para reduzir código repetitivo (getters/setters) -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.38</version> <!-- Versão do Lombok -->
+			<scope>provided</scope> <!-- Não entra no pacote final -->
+		</dependency>
+	</dependencies>
+
+	<!-- Configurações de build -->
+	<build>
+		<plugins>
+			<!-- Plugin oficial do Spring Boot para empacotamento -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Plugin do Maven Compiler para compilar código Java -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>17</source> <!-- Versão do Java fonte -->
+					<target>17</target> <!-- Versão de destino da compilação -->
+
+					<!-- Configura o Lombok para funcionar na compilação -->
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.38</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
