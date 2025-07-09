@@ -24,11 +24,11 @@
             <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
         </div>
 
-        <!-- Campo para o CPF do vendedor -->
+        <!-- Campo para o CNPJ ou CPF do vendedor -->
         <div class="mb-3">
-            <label for="cpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="cpf" th:field="*{cpf}" placeholder="Digite o CPF (somente números)">
-            <div class="text-danger" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
+            <label for="cnpjCpf" class="form-label">CPF ou CNPJ</label>
+            <input type="text" class="form-control" id="cnpjCpf" th:field="*{cnpjCpf}" placeholder="Digite o CPF ou CNPJ">
+            <div class="text-danger" th:if="${#fields.hasErrors('cnpjCpf')}" th:errors="*{cnpjCpf}"></div>
         </div>
 
         <!-- Campo para o email do vendedor -->
@@ -43,6 +43,13 @@
             <label for="telefone" class="form-label">Telefone</label>
             <input type="text" class="form-control" id="telefone" th:field="*{telefone}" placeholder="Digite o telefone">
             <div class="text-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+        </div>
+
+        <!-- Campo para o tipo do vendedor (Pessoa Física ou Jurídica) -->
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo</label>
+            <input type="text" class="form-control" id="tipo" th:field="*{tipo}" placeholder="Pessoa Física ou Jurídica">
+            <div class="text-danger" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></div>
         </div>
 
         <!-- Botão para enviar o formulário -->

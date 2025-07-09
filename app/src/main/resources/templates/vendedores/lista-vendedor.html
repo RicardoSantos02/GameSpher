@@ -18,7 +18,7 @@
         <thead>
         <tr>
             <th>Nome</th>
-            <th>CPF</th>
+            <th>CPF / CNPJ</th> <!-- Atualizei o título para refletir o campo -->
             <th>Email</th>
             <th>Telefone</th>
         </tr>
@@ -28,8 +28,8 @@
         <tr th:each="vendedor : ${vendedores}">
             <!-- Exibe o nome do vendedor -->
             <td th:text="${vendedor.nome}">Nome</td>
-            <!-- Exibe o CPF do vendedor -->
-            <td th:text="${vendedor.cpf}">CPF</td>
+            <!-- Exibe o CPF ou CNPJ do vendedor -->
+            <td th:text="${vendedor.cnpjCpf}">CPF/CNPJ</td>
             <!-- Exibe o email do vendedor -->
             <td th:text="${vendedor.email}">Email</td>
             <!-- Exibe o telefone do vendedor -->

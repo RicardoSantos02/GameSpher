@@ -32,8 +32,8 @@ public class Vendedor {
     @Column(name = "telefone", length = 20)
     private String telefone;
 
-    @Column(name = "cnpj_cpf", length = 20)
-    private String cnpjCpf;
+    @Column(name = "cnpj_cpf", nullable = false, unique = true, length = 20)
+    private String cnpjCpf;  // CPF ou CNPJ do vendedor
 
     @Column(name = "tipo", nullable = false, length = 20)
     private String tipo;  // Pessoa Física ou Pessoa Jurídica
