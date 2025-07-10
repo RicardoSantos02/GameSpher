@@ -1,4 +1,4 @@
-package br.edu.gamespher.web.controladores;
+package br.edu.ifrn.gamespher.web.controladores; // LINHA CORRIGIDA!
 
 import java.util.List;
 
