@@ -89,16 +89,17 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra maior ao passar o mouse */
         }
 
-        /* Estilos específicos para o botão primário (Salvar) - Azul Escuro */
-        .btn-primary {
-            background-color: #0000A0;
-            border-color: #0000A0;
-            margin-right: 15px; /* Espaçamento à direita */
+        /* Estilos personalizados para o botão de Salvar (agora mais vermelho, igual ao da lista) */
+        .btn-custom-save { /* Nova classe para o botão de salvar */
+            background-color: #DC3545; /* Vermelho mais vibrante (cor do Bootstrap danger) */
+            border-color: #DC3545;
+            color: #ffffff; /* Texto branco para maior visibilidade */
+            margin-right: 5cm; /* ESPAÇAMENTO ALTERADO AQUI */
         }
 
-        .btn-primary:hover {
-            background-color: #000060; /* Azul mais escuro ao passar o mouse */
-            border-color: #000060;
+        .btn-custom-save:hover {
+            background-color: #C82333; /* Vermelho mais escuro no hover */
+            border-color: #BD2130;
         }
 
         /* Estilos específicos para o botão secundário (Voltar) - Roxo Escuro */
@@ -147,12 +148,12 @@
             <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
         </div>
 
-        <!-- Campo para o CNPJ ou CPF do vendedor -->
+        <!-- Campo para o CPF do vendedor -->
         <div class="mb-3">
-            <label for="Cpf" class="form-label">CPF</label>
-            <!-- Adicionado onkeyup para aplicar a máscara de CPF -->
-            <input type="text" class="form-control" id="Cpf" th:field="*{Cpf}" placeholder="Digite o CPF ou CNPJ" onkeyup="maskCpf(this)">
-            <div class="text-danger" th:if="${#fields.hasErrors('Cpf')}" th:errors="*{Cpf}"></div>
+            <label for="cpf" class="form-label">CPF</label>
+            <!-- Atualizado id e th:field para 'cpf', e onkeyup para maskCpf -->
+            <input type="text" class="form-control" id="cpf" th:field="*{cpf}" placeholder="Digite o CPF" onkeyup="maskCpf(this)">
+            <div class="text-danger" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
         </div>
 
         <!-- Campo para o email do vendedor -->
@@ -171,23 +172,25 @@
             <div class="text-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
         </div>
 
-        <!-- Botão para enviar o formulário -->
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <!-- Link para voltar à lista de vendedores -->
-        <a href="/vendedores" class="btn btn-secondary">Voltar</a>
+        <!-- Campo para o tipo do vendedor (Pessoa Física ou Jurídica) - REMOVIDO -->
+
+        <!-- Contêiner para centralizar os botões -->
+        <div class="d-flex justify-content-center mt-4">
+            <!-- Botão para enviar o formulário -->
+            <button type="submit" class="btn btn-custom-save">Salvar</button>
+            <!-- Link para voltar à lista de vendedores -->
+            <a href="/vendedores" class="btn btn-secondary">Voltar</a>
+        </div>
     </form>
 </div>
 
 <script>
-    // Função para aplicar máscara de CPF/CNPJ
-    // Adapta-se para CPF (11 dígitos) ou CNPJ (14 dígitos)
+    // Função para aplicar máscara de CPF
     function maskCpf(input) {
         let value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
-        if (value.length <= 11) { // Formato CPF: XXX.XXX.XXX-XX
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-        }           
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
         input.value = value;
     }
 
@@ -206,9 +209,6 @@
         }
         input.value = value;
     }
-
-    // Para o campo de email, o tipo "email" do HTML já oferece validação básica.
-    // Máscaras de caracteres para email não são comuns ou práticas.
-</script>
-</body>
+    </script>
+    </body>
 </html>
