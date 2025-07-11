@@ -41,7 +41,7 @@ public class VendedorControler {
     @PostMapping
     public String salvar(@Valid @ModelAttribute Vendedor vendedor, BindingResult result, Model model) {
         // Verifica duplicidade de CNPJ/CPF (campo único)
-        if (vendedorRepository.findByCnpjCpf(vendedor.getCnpjCpf()).isPresent()) {
+        if (vendedorRepository.findByCnpjCpf(vendedor.getCpf()).isPresent()) {
             result.rejectValue("cnpjCpf", "erro.duplicado", "Já existe um vendedor com esse CPF ou CNPJ");
         }
 

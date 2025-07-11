@@ -34,9 +34,6 @@ public class Vendedor {
     private String telefone;
 
     @Column(name = "cnpj_cpf", nullable = false, unique = true, length = 20)
-    private String cnpjCpf; // CPF ou CNPJ do vendedor
-
-    @Column(name = "tipo", nullable = false, length = 20) // Será VARCHAR no banco
-    private String tipo; // Pessoa Física ou Pessoa Jurídica
+    private String Cpf; 
 
 }
