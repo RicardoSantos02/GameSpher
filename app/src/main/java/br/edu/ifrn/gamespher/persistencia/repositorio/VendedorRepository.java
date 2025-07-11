@@ -9,7 +9,7 @@ import br.edu.ifrn.gamespher.persistencia.modelo.Vendedor;
 // Interface que oferece as operações CRUD para a entidade Vendedor
 public interface VendedorRepository extends JpaRepository<Vendedor, Long> {
 
-    // Método para buscar um vendedor pelo CNPJ ou CPF (campo único) para validar duplicidade
-    Optional<Vendedor> findByCnpjCpf(String cnpjCpf);
+    // Método para buscar um vendedor pelo CPF (campo único) para validar duplicidade
+    Optional<Vendedor> findByCpf(String cpf);
 
 }

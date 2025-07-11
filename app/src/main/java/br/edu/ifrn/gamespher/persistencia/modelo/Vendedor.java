@@ -33,7 +33,7 @@ public class Vendedor {
     @Column(name = "telefone", length = 20)
     private String telefone;
 
-    @Column(name = "cnpj_cpf", nullable = false, unique = true, length = 20)
-    private String Cpf; 
+    @Column(name = "cpf", nullable = false, unique = true, length = 20)
+    private String cpf; 
 
 }

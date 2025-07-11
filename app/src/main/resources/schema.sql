@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS vendedores (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     telefone VARCHAR(20),
-    cpf VARCHAR(20) UNIQUE NOT NULL, -- Adicionado UNIQUE para corresponder à entidade
+    cpf VARCHAR(20) UNIQUE NOT NULL 
 );
