@@ -21,6 +21,7 @@ public class Vendedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_vendedor") // Mapeia para id_vendedor no banco
     private Long id;
 
     @Column(name = "nome", nullable = false, length = 100)
@@ -33,9 +34,9 @@ public class Vendedor {
     private String telefone;
 
     @Column(name = "cnpj_cpf", nullable = false, unique = true, length = 20)
-    private String cnpjCpf;  // CPF ou CNPJ do vendedor
+    private String cnpjCpf; // CPF ou CNPJ do vendedor
 
-    @Column(name = "tipo", nullable = false, length = 20)
-    private String tipo;  // Pessoa Física ou Pessoa Jurídica
+    @Column(name = "tipo", nullable = false, length = 20) // Será VARCHAR no banco
+    private String tipo; // Pessoa Física ou Pessoa Jurídica
 
 }
