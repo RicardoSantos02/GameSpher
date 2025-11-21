@@ -13,6 +13,15 @@ public class Hardware {
     private String fabricante;
     private String categoria;
     private String plataforma;
+    
+    @Column(columnDefinition = "TEXT")
     private String descricao;
+    
     private BigDecimal preco;
+
+    @Column(name = "imagem_url")
+    private String imagemUrl;
+
+    @Column(name = "loja_url")
+    private String lojaUrl;
 }

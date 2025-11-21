@@ -1,64 +1,38 @@
--- 1. JOGOS (Físicos e Digitais)
-INSERT INTO jogos (titulo, plataforma, tipo, preco, ano_lancamento) VALUES
-('The Legend of Zelda: Tears of the Kingdom', 'Nintendo Switch', 'Físico', 349.90, 2023),
-('God of War Ragnarök', 'PlayStation 5', 'Físico', 299.90, 2022),
-('Elden Ring', 'PC', 'Digital', 229.90, 2022),
-('Grand Theft Auto V', 'Xbox Series X', 'Digital', 99.90, 2013),
-('Cyberpunk 2077', 'PC', 'Digital', 199.90, 2020),
-('Super Mario Odyssey', 'Nintendo Switch', 'Físico', 299.00, 2017),
-('Red Dead Redemption 2', 'PlayStation 4', 'Físico', 149.90, 2018),
-('Minecraft', 'PC', 'Digital', 129.90, 2011),
-('The Last of Us Part I', 'PlayStation 5', 'Físico', 349.50, 2022),
-('FIFA 24 (EA FC)', 'Xbox One', 'Digital', 299.90, 2023);
+-- 1. JOGOS (10 Itens)
+INSERT INTO jogos (titulo, plataforma, tipo, preco, ano_lancamento, descricao, imagem_url, loja_url) VALUES
+('The Legend of Zelda: Tears of the Kingdom', 'Switch', 'Físico', 349.90, 2023, 'Uma aventura épica pelos céus de Hyrule.', 'https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000063714/811461b8d1cacf1f2b668e832aed6a8279b475eb9c5a93119bb742d03d4332b2', 'https://www.nintendo.com'),
+('God of War Ragnarök', 'PS5', 'Físico', 299.90, 2022, 'O Fimbulwinter chegou. Kratos e Atreus buscam respostas.', 'https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png', 'https://www.playstation.com'),
+('Elden Ring', 'PC', 'Digital', 229.90, 2022, 'Uma aventura de RPG de ação e fantasia sombria.', 'https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/phQ42Q5Sbsf27uM9x7e81357.png', 'https://store.steampowered.com'),
+('Grand Theft Auto V', 'Xbox Series', 'Digital', 99.90, 2013, 'Explore o mundo premiado de Los Santos.', 'https://image.api.playstation.com/vulcan/ap/rnd/202201/0700/eEaeu4j274r69V653g8Y67k0.png', 'https://www.xbox.com'),
+('Cyberpunk 2077', 'PC', 'Digital', 199.90, 2020, 'História de ação e aventura em mundo aberto.', 'https://image.api.playstation.com/vulcan/ap/rnd/202311/1618/3095832074e93762437927d39960e22776659e9a95380335.png', 'https://store.steampowered.com'),
+('Red Dead Redemption 2', 'PS4', 'Físico', 149.90, 2018, 'A vida no coração da América no início da era moderna.', 'https://image.api.playstation.com/vulcan/ap/rnd/202009/2811/K77n1X3Yg8aY1X2B5q5W5z3K.png', 'https://www.rockstargames.com'),
+('Minecraft', 'Switch', 'Físico', 149.90, 2011, 'Construa, explore e sobreviva em um mundo de blocos.', 'https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000000964/817770c56254b939770208f323370c7e547422c0527224297390007c576bf99c', 'https://www.minecraft.net'),
+('FIFA 24 (EA FC)', 'PS5', 'Digital', 299.90, 2023, 'O jogo de todo mundo. O novo capítulo do futebol.', 'https://media.contentapi.ea.com/content/dam/eacom/fc/fc-24/common/fc24-standard-edition-featured-image-16x9.jpg.adapt.crop191x100.1200w.jpg', 'https://www.ea.com'),
+('Horizon Forbidden West', 'PS4', 'Físico', 199.90, 2022, 'Explore terras distantes, enfrente máquinas maiores e mais inspiradoras.', 'https://image.api.playstation.com/vulcan/ap/rnd/202107/3100/ho8XXQaPVnbhicGe8e6c75H9.png', 'https://www.playstation.com'),
+('Starfield', 'Xbox Series', 'Digital', 349.90, 2023, 'Neste RPG de nova geração, você poderá criar qualquer personagem.', 'https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/60eca3774d189835093d831e57257703567549714d4175c3.png', 'https://bethesda.net');
 
--- 2. CONSOLES E ACESSÓRIOS (Tabela Hardware - Categoria 'Console' ou 'Acessório')
-INSERT INTO hardware (nome, fabricante, categoria, plataforma, descricao, preco) VALUES
-('PlayStation 5 Edição Digital', 'Sony', 'Console', 'PlayStation', 'Console PS5 sem leitor de disco', 3999.90),
-('Xbox Series X', 'Microsoft', 'Console', 'Xbox', 'O Xbox mais rápido e poderoso de todos os tempos', 4499.90),
-('Nintendo Switch OLED', 'Nintendo', 'Console', 'Nintendo', 'Tela OLED vibrante de 7 polegadas', 2199.90),
-('Controle DualSense', 'Sony', 'Acessório', 'PlayStation', 'Feedback háptico e gatilhos adaptáveis - Branco', 449.90),
-('Controle Xbox Wireless', 'Microsoft', 'Acessório', 'Xbox', 'Robot White, compatível com PC e Mobile', 399.00),
-('Headset Pulse 3D', 'Sony', 'Acessório', 'PlayStation', 'Áudio 3D ajustado para consoles PS5', 599.90),
-('Joy-Con Par (Neon)', 'Nintendo', 'Acessório', 'Nintendo', 'Controles versáteis para Switch', 499.00),
-('Base de Carregamento DualSense', 'Sony', 'Acessório', 'PlayStation', 'Carregue dois controles simultaneamente', 199.90),
-('Cartão de Expansão Seagate 1TB', 'Seagate', 'Acessório', 'Xbox', 'Armazenamento extra SSD para Xbox Series X|S', 1299.00),
-('Capa Protetora Switch', 'Hori', 'Acessório', 'Nintendo', 'Capa rígida para transporte seguro', 129.90);
+-- 2. HARDWARE (10 Itens)
+INSERT INTO hardware (nome, fabricante, categoria, plataforma, descricao, preco, imagem_url, loja_url) VALUES
+('PlayStation 5', 'Sony', 'Console', 'PlayStation', 'Console PS5 com leitor de disco. Jogar Não Tem Limites.', 3999.90, 'https://gmedia.playstation.com/is/image/SIEPDC/ps5-product-thumbnail-01-en-14sep21?$facebook$', 'https://www.playstation.com'),
+('Xbox Series X', 'Microsoft', 'Console', 'Xbox', 'O Xbox mais rápido e poderoso de todos os tempos.', 4499.90, 'https://compass-ssl.xbox.com/assets/4f/42/4f429961-5552-4d47-920b-209997874097.jpg?n=Xbox-Series-X_Image-0_496x480.jpg', 'https://www.xbox.com'),
+('Nintendo Switch OLED', 'Nintendo', 'Console', 'Nintendo', 'Tela OLED vibrante de 7 polegadas.', 2199.90, 'https://assets.nintendo.com/image/upload/f_auto/q_auto/c_fill,w_800/ncom/pt_BR/switch/site-design-update/oled-model-promo', 'https://www.nintendo.com'),
+('Controle DualSense', 'Sony', 'Acessório', 'PS5', 'Feedback háptico e gatilhos adaptáveis.', 449.90, 'https://gmedia.playstation.com/is/image/SIEPDC/dualsense-midnight-black-image-block-01-en-13may21?$1600px$', 'https://www.playstation.com'),
+('Headset Pulse 3D', 'Sony', 'Acessório', 'PS5', 'Áudio 3D ajustado para consoles PS5.', 599.90, 'https://gmedia.playstation.com/is/image/SIEPDC/pulse-3d-wireless-headset-product-thumbnail-01-en-14sep21?$facebook$', 'https://www.playstation.com'),
+('Teclado HyperX Alloy', 'HyperX', 'Periférico', 'PC', 'Teclado mecânico compacto e resistente.', 599.00, 'https://row.hyperx.com/cdn/shop/products/hyperx_alloy_origins_core_us_1_2048x.jpg?v=1660618679', 'https://hyperx.com'),
+('Mouse Razer DeathAdder', 'Razer', 'Periférico', 'PC', 'Mouse gamer ergonômico de alta precisão.', 299.90, 'https://assets2.razerzone.com/images/pnx.assets/618c0b987633a177729759545c384363/deathadder-v3-pro-black-500x500.png', 'https://www.razer.com'),
+('Monitor LG UltraGear 27', 'LG', 'Periférico', 'PC', 'Monitor Gamer 144Hz 1ms IPS Full HD.', 1599.00, 'https://www.lg.com/br/images/monitores/md07546993/gallery/medium01.jpg', 'https://www.lg.com'),
+('Cadeira Gamer DX Racer', 'DXRacer', 'Periférico', 'PC', 'Conforto e ergonomia para longas sessões.', 1899.00, 'https://dxracer.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/cadeira-gamer-dxracer-nex-branca-e-preta-ok.jpg', 'https://www.dxracer.com'),
+('Volante Logitech G29', 'Logitech', 'Acessório', 'PC/PS', 'Volante de corrida com Force Feedback.', 1399.00, 'https://resource.logitechg.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/g923-and-g29/g923-g29-hero.png?v=1', 'https://www.logitechg.com');
 
--- 3. PERIFÉRICOS PARA PC (Tabela Hardware - Categoria 'Periférico')
-INSERT INTO hardware (nome, fabricante, categoria, plataforma, descricao, preco) VALUES
-('Teclado Mecânico HyperX Alloy', 'HyperX', 'Periférico', 'PC', 'Switch Blue, RGB, Layout ABNT2', 599.90),
-('Mouse Gamer Logitech G502', 'Logitech', 'Periférico', 'PC', 'Sensor HERO 25K, Pesos ajustáveis', 299.90),
-('Monitor Gamer LG UltraGear 27"', 'LG', 'Periférico', 'PC', '144Hz, 1ms, IPS Full HD', 1599.00),
-('Headset Gamer Razer BlackShark V2', 'Razer', 'Periférico', 'PC', 'Drivers de 50mm, som surround 7.1', 649.90),
-('Cadeira Gamer DX Racer', 'DX Racer', 'Periférico', 'PC', 'Ergonômica, reclinável até 180 graus', 1899.90),
-('Mousepad Gamer Extra Grande', 'Redragon', 'Periférico', 'PC', '80x30cm, base antiderrapante', 89.90),
-('Webcam Logitech C920', 'Logitech', 'Periférico', 'PC', 'Full HD 1080p, foco automático', 399.00),
-('Microfone HyperX QuadCast', 'HyperX', 'Periférico', 'PC', 'Microfone condensador USB com RGB', 899.90),
-('Teclado Corsair K70 RGB', 'Corsair', 'Periférico', 'PC', 'Switch Cherry MX Red, estrutura em alumínio', 999.90),
-('Mouse Wireless Razer Viper', 'Razer', 'Periférico', 'PC', 'Ultraleve, tecnologia HyperSpeed', 499.90);
-
--- 4. COLECIONÁVEIS E ITENS EXCLUSIVOS
-INSERT INTO colecionaveis (nome, franquia, tipo_item, edicao_exclusiva, preco) VALUES
-('Funko Pop! Geralt of Rivia', 'The Witcher', 'Action Figure', FALSE, 129.90),
-('Estátua Kratos & Atreus 1/10', 'God of War', 'Estátua', TRUE, 899.90),
-('Camiseta Logo Umbrella Corp', 'Resident Evil', 'Vestuário', FALSE, 69.90),
-('Réplica Varinha das Varinhas', 'Harry Potter', 'Réplica', FALSE, 249.90),
-('Action Figure Spider-Man Miles Morales', 'Marvel', 'Action Figure', FALSE, 299.90),
-('Pôster Metálico Cyberpunk', 'Cyberpunk 2077', 'Decoração', TRUE, 159.90),
-('Capacete Master Chief (Decorativo)', 'Halo', 'Réplica', TRUE, 599.00),
-('Caneca Térmica Nuka Cola', 'Fallout', 'Utensílio', FALSE, 89.90),
-('Pelúcia Pikachu Gigante', 'Pokémon', 'Pelúcia', FALSE, 199.90),
-('Chaveiro Espada Buster Sword', 'Final Fantasy VII', 'Acessório', FALSE, 39.90);
-
--- 5. GIFT CARDS E CRÉDITOS DIGITAIS
-INSERT INTO giftcards (plataforma, valor, codigo_exemplo) VALUES
-('PlayStation Store', 100.00, 'PSN-BR-100-EXAMPLE'),
-('PlayStation Store', 250.00, 'PSN-BR-250-EXAMPLE'),
-('Xbox Live', 100.00, 'XBX-BR-100-EXAMPLE'),
-('Xbox Game Pass Ultimate (1 Mês)', 49.90, 'XGP-ULT-1M-EXAMPLE'),
-('Steam', 50.00, 'STM-BR-50-EXAMPLE'),
-('Steam', 100.00, 'STM-BR-100-EXAMPLE'),
-('Nintendo eShop', 100.00, 'NIN-BR-100-EXAMPLE'),
-('Nintendo eShop', 300.00, 'NIN-BR-300-EXAMPLE'),
-('Riot Points (League of Legends)', 50.00, 'RIOT-BR-50-EXAMPLE'),
-('Roblox Robux', 25.00, 'RBX-BR-25-EXAMPLE');
+-- 3. COLECIONÁVEIS (10 Itens)
+INSERT INTO colecionaveis (nome, franquia, tipo_item, edicao_exclusiva, preco, descricao, imagem_url, loja_url) VALUES
+('Funko Pop! Geralt', 'The Witcher', 'Action Figure', FALSE, 129.90, 'O bruxo Geralt pronto para a batalha.', 'https://funko.com/dw/image/v2/BGTS_PRD/on/demandware.static/-/Sites-funko-master-catalog/default/dw450c0b63/images/funko/upload/66632_TheWitcher_Geralt_POP_GLAM-WEB.png?sw=800&sh=800', 'https://funko.com'),
+('Estátua Kratos', 'God of War', 'Estátua', TRUE, 899.90, 'Estátua de luxo detalhada da Iron Studios.', 'https://www.ironstudios.com/arquivos/ids/268348/God-of-War-Kratos-and-Atreus-1-10-Art-Scale-Statue-Iron-Studios-License.jpg?v=637720772881800000', 'https://ironstudios.com'),
+('Capacete Master Chief', 'Halo', 'Réplica', TRUE, 599.00, 'Réplica em tamanho real do capacete Spartan.', 'https://m.media-amazon.com/images/I/71yqLw1qZJL._AC_SL1500_.jpg', 'https://gear.xbox.com'),
+('Pôster Cyberpunk', 'Cyberpunk', 'Decoração', FALSE, 89.00, 'Arte oficial de Night City.', 'https://m.media-amazon.com/images/I/81W39cm-wVL._AC_SY879_.jpg', 'https://cdprojektred.gear'),
+('Caneca Mario', 'Mario Bros', 'Utensílio', FALSE, 59.90, 'Caneca temática do bloco de interrogação.', 'https://m.media-amazon.com/images/I/61K-7-qW7JL._AC_SL1000_.jpg', 'https://store.nintendo.com'),
+('Chaveiro Buster Sword', 'Final Fantasy', 'Acessório', FALSE, 39.90, 'Espada icônica de Cloud Strife.', 'https://m.media-amazon.com/images/I/51X3+1+L+4L._AC_SL1000_.jpg', 'https://store.na.square-enix-games.com'),
+('Camiseta The Last of Us', 'TLOU', 'Vestuário', FALSE, 79.90, 'Camiseta oficial com a logo dos Vaga-lumes.', 'https://m.media-amazon.com/images/I/61+u+y+L+4L._AC_UX679_.jpg', 'https://gear.playstation.com'),
+('Luminária Pac-Man', 'Pac-Man', 'Decoração', FALSE, 149.90, 'Luminária fantasma que muda de cor.', 'https://m.media-amazon.com/images/I/61+u+y+L+4L._AC_SL1500_.jpg', 'https://www.bandainamcoent.com'),
+('Pelúcia Pikachu', 'Pokémon', 'Pelúcia', FALSE, 199.00, 'Pelúcia gigante e macia do Pikachu.', 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png', 'https://www.pokemoncenter.com'),
+('Action Figure Spider-Man', 'Marvel', 'Action Figure', TRUE, 349.90, 'Homem-Aranha com traje avançado PS5.', 'https://m.media-amazon.com/images/I/61+u+y+L+4L._AC_SL1500_.jpg', 'https://www.marvel.com');

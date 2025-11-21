@@ -15,4 +15,13 @@ public class Colecionavel {
     @Column(name = "edicao_exclusiva")
     private Boolean edicaoExclusiva;
     private BigDecimal preco;
+
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
+
+    @Column(name = "imagem_url")
+    private String imagemUrl;
+
+    @Column(name = "loja_url")
+    private String lojaUrl;
 }

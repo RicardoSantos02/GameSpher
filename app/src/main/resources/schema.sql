@@ -7,17 +7,20 @@ CREATE TABLE IF NOT EXISTS vendedores (
     cpf VARCHAR(20) UNIQUE NOT NULL 
 );
 
--- 2. Tabela de Jogos
+-- 2. Tabela de Jogos (Atualizada)
 CREATE TABLE IF NOT EXISTS jogos (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     plataforma VARCHAR(50) NOT NULL,
     tipo VARCHAR(20) CHECK (tipo IN ('Físico', 'Digital')),
     preco DECIMAL(10, 2) NOT NULL,
-    ano_lancamento INT
+    ano_lancamento INT,
+    descricao TEXT, -- Novo
+    imagem_url VARCHAR(500), -- Novo
+    loja_url VARCHAR(500) -- Novo (Link externo)
 );
 
--- 3. Tabela de Hardware
+-- 3. Tabela de Hardware (Atualizada)
 CREATE TABLE IF NOT EXISTS hardware (
     id_hardware BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -25,17 +28,22 @@ CREATE TABLE IF NOT EXISTS hardware (
     categoria VARCHAR(20) CHECK (categoria IN ('Console', 'Acessório', 'Periférico')),
     plataforma VARCHAR(50),
     descricao TEXT,
-    preco DECIMAL(10,2) NOT NULL
+    preco DECIMAL(10,2) NOT NULL,
+    imagem_url VARCHAR(500), -- Novo
+    loja_url VARCHAR(500) -- Novo
 );
 
--- 4. Tabela de Colecionáveis
+-- 4. Tabela de Colecionáveis (Atualizada)
 CREATE TABLE IF NOT EXISTS colecionaveis (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     franquia VARCHAR(100),
     tipo_item VARCHAR(50),
     edicao_exclusiva BOOLEAN DEFAULT FALSE,
-    preco DECIMAL(10, 2) NOT NULL
+    preco DECIMAL(10, 2) NOT NULL,
+    descricao TEXT, -- Novo
+    imagem_url VARCHAR(500), -- Novo
+    loja_url VARCHAR(500) -- Novo
 );
 
 -- 5. Tabela de Gift Cards
@@ -46,7 +54,7 @@ CREATE TABLE IF NOT EXISTS giftcards (
     codigo_exemplo VARCHAR(50)
 );
 
--- 6. Tabela de Usuários (Entidade Forte)
+-- 6. Tabela de Usuários
 CREATE TABLE IF NOT EXISTS usuarios (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -56,7 +64,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     telefone VARCHAR(20)
 );
 
--- 7. Tabela de Pedidos (Entidade Fraca - Relacionamento 1:N)
+-- 7. Tabela de Pedidos
 CREATE TABLE IF NOT EXISTS pedidos (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(50),
@@ -64,6 +72,6 @@ CREATE TABLE IF NOT EXISTS pedidos (
     total DECIMAL(10, 2),
     status VARCHAR(50),
     itens_resumo TEXT,
-    usuario_id BIGINT, -- Chave Estrangeira
+    usuario_id BIGINT,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
