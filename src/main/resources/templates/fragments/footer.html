@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Footer Fragment</title>
+</head>
+<body>
+    <footer th:fragment="footer" class="bg-dark text-white mt-5 p-4 text-center">
+        <div class="container">
+            <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2024</span> GameSpher. Todos os direitos reservados.</p>
+            <p>Desenvolvido com Spring Boot e Thymeleaf.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Vendedores - GameSpher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Link para o CSS do Bootstrap para estilizar a página -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos globais para o corpo da página */
+        body {
+            /* Gradiente de fundo com roxo escuro, azul e vermelho */
+            background: linear-gradient(135deg, #4A006A, #000080, #A00000);
+            font-family: 'Inter', sans-serif; /* Fonte moderna */
+            display: flex; /* Usado para centralizar o conteúdo */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            min-height: 100vh; /* Garante que o corpo ocupe a altura total da viewport */
+            margin: 0;
+            padding: 20px; /* Adiciona um pouco de padding em telas menores */
+            box-sizing: border-box; /* Inclui padding e borda no tamanho total */
+        }
+
+        /* Estilos para o contêiner principal */
+        .container {
+            background-color: #ffffff; /* Fundo branco para o conteúdo */
+            padding: 40px; /* Espaçamento interno */
+            border-radius: 15px; /* Cantos arredondados */
+            /* Sombra suave com um tom de roxo escuro */
+            box-shadow: 0 10px 30px rgba(74, 0, 106, 0.2);
+            max-width: 900px; /* Largura máxima do contêiner */
+            width: 100%; /* Ocupa a largura total disponível */
+            animation: fadeIn 0.8s ease-out; /* Animação de entrada */
+        }
+
+        /* Animação de fade-in para o contêiner */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos para o título da página */
+        h1 {
+            color: #343a40; /* Cor escura para o texto */
+            text-align: center; /* Centraliza o título */
+            margin-bottom: 30px; /* Espaçamento abaixo do título */
+            font-weight: 700; /* Negrito */
+        }
+
+        /* Estilos para os botões */
+        .btn {
+            padding: 12px 25px; /* Padding interno dos botões */
+            border-radius: 8px; /* Cantos arredondados */
+            font-weight: 500; /* Peso médio da fonte */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transição suave para hover */
+        }
+
+        .btn:hover {
+            transform: translateY(-2px); /* Efeito de "levantar" ao passar o mouse */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra maior ao passar o mouse */
+        }
+
+        /* Estilos específicos para o botão de sucesso (Cadastrar Novo Vendedor) - Verde */
+        .btn-success {
+            background-color: #28a745; /* Cor de fundo verde */
+            border-color: #28a745; /* Cor da borda verde */
+        }
+
+        .btn-success:hover {
+            background-color: #218838; /* Verde mais escuro ao passar o mouse */
+            border-color: #1e7e34;
+        }
+
+        /* Estilos para a tabela */
+        .table {
+            margin-top: 20px; /* Espaçamento acima da tabela */
+            border-radius: 8px; /* Cantos arredondados para a tabela */
+            overflow: hidden; /* Garante que os cantos arredondados sejam visíveis */
+        }
+
+        .table thead th {
+            background-color: #0000A0; /* Fundo azul escuro para o cabeçalho */
+            color: #ffffff; /* Texto branco no cabeçalho */
+            border-color: #0000A0; /* Borda do cabeçalho */
+            padding: 15px; /* Padding maior no cabeçalho */
+        }
+
+        .table tbody tr {
+            background-color: #ffffff; /* Fundo branco para as linhas */
+        }
+
+        .table tbody tr:nth-of-type(odd) {
+            background-color: #f8f9fa; /* Fundo levemente cinza para linhas ímpares */
+        }
+
+        .table tbody td {
+            padding: 12px 15px; /* Padding interno das células */
+            vertical-align: middle; /* Alinhamento vertical do texto */
+        }
+
+        /* Media queries para responsividade em telas menores */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px; /* Reduz o padding em telas menores */
+            }
+
+            h1 {
+                font-size: 1.8em; /* Reduz o tamanho do título */
+            }
+
+            .btn {
+                width: 100%; /* Botões ocupam a largura total */
+                margin-bottom: 10px; /* Adiciona margem inferior entre botões */
+            }
+
+            .table thead {
+                display: none; /* Esconde o cabeçalho da tabela em telas pequenas */
+            }
+
+            .table, .table tbody, .table tr, .table td {
+                display: block; /* Transforma a tabela em blocos para melhor visualização */
+                width: 100%;
+            }
+
+            .table tr {
+                margin-bottom: 15px; /* Espaçamento entre os "blocos" de linha */
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                padding: 10px;
+            }
+
+            .table td {
+                text-align: right; /* Alinha o texto à direita */
+                padding-left: 50%; /* Espaço para o label */
+                position: relative;
+            }
+
+            .table td::before {
+                content: attr(data-label); /* Usa o atributo data-label para o "cabeçalho" */
+                position: absolute;
+                left: 10px;
+                width: calc(50% - 20px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: #495057;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Título da página -->
+    <h1 class="mb-4">Vendedores Cadastrados</h1>
+    <!-- Botão para acessar o formulário de novo vendedor -->
+    <a href="/vendedores/novo" class="btn btn-outline-danger">Cadastrar Novo Vendedor</a>
+    <!-- Tabela para listar os vendedores cadastrados -->
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th> <!-- Título da coluna CPF -->
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+            <!-- A coluna 'Tipo' foi removida -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Percorre a lista 'vendedores' e exibe cada vendedor -->
+        <tr th:each="vendedor : ${vendedores}">
+            <!-- Exibe o nome do vendedor -->
+            <td th:text="${vendedor.nome}" data-label="Nome">Nome</td>
+            <!-- Exibe o CPF do vendedor -->
+            <td th:text="${vendedor.cpf}" data-label="CPF">CPF</td>
+            <!-- Exibe o email do vendedor -->
+            <td th:text="${vendedor.email}" data-label="Email">Email</td>
+            <!-- Exibe o telefone do vendedor -->
+            <td th:text="${vendedor.telefone}" data-label="Telefone">Telefone</td>
+            <td data-label="Ações">
+                <a th:href="@{/vendedores/editar/{id}(id=${vendedor.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/vendedores/excluir/{id}(id=${vendedor.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este vendedor?');">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
