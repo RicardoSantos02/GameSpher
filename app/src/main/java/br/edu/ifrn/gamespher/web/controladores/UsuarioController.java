@@ -1,6 +1,5 @@
 package br.edu.ifrn.gamespher.web.controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +10,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.edu.ifrn.gamespher.persistencia.modelo.Pedido; // <--- IMPORTANTE: Usa a Entidade
 import br.edu.ifrn.gamespher.persistencia.modelo.Usuario;
+import br.edu.ifrn.gamespher.persistencia.repositorio.PedidoRepository;
 import br.edu.ifrn.gamespher.persistencia.repositorio.UsuarioRepository;
-import br.edu.ifrn.gamespher.web.dto.PedidoDTO;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    @Autowired private UsuarioRepository usuarioRepository;
+    @Autowired private PedidoRepository pedidoRepository; 
 
-    // --- CADASTRO REAL ---
+    // --- CADASTRO ---
     @GetMapping("/usuarios/novo")
     public String novoUsuario() {
         return "usuarios/formulario-usuario";
@@ -30,16 +30,14 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/novo")
     public String salvarUsuario(Usuario usuario) {
-        // Salva o novo cliente no banco de dados
         usuarioRepository.save(usuario);
         return "redirect:/login";
     }
 
-    // --- PERFIL REAL ---
+    // --- PERFIL ---
     @GetMapping("/perfil")
     public String perfil(HttpSession session, Model model) {
         Usuario usuarioSessao = (Usuario) session.getAttribute("usuarioLogado");
-        
         if (usuarioSessao == null) return "redirect:/login";
 
         // Recarrega do banco para garantir dados atualizados
@@ -47,22 +45,20 @@ public class UsuarioController {
         
         model.addAttribute("usuario", usuarioAtualizado);
         model.addAttribute("usuarioLogado", usuarioAtualizado.getNome());
-        
         return "usuarios/perfil";
     }
 
     @PostMapping("/perfil/salvar")
     public String salvarPerfil(@ModelAttribute Usuario usuarioForm, @RequestParam String senhaConfirmacao, HttpSession session) {
         Usuario usuarioSessao = (Usuario) session.getAttribute("usuarioLogado");
-        
         if (usuarioSessao == null) return "redirect:/login";
 
-        // Valida a senha atual para permitir edição
+        // Verifica senha
         if (!usuarioSessao.getSenha().equals(senhaConfirmacao)) {
             return "redirect:/perfil?erro=senha";
         }
 
-        // Atualiza os dados
+        // Atualiza no Banco
         Usuario usuarioBanco = usuarioRepository.findById(usuarioSessao.getId()).get();
         usuarioBanco.setNome(usuarioForm.getNome());
         usuarioBanco.setEmail(usuarioForm.getEmail());
@@ -70,25 +66,43 @@ public class UsuarioController {
         
         usuarioRepository.save(usuarioBanco);
         
-        // Atualiza a sessão
+        // Atualiza Sessão
         session.setAttribute("usuarioLogado", usuarioBanco);
 
         return "redirect:/perfil?sucesso=true";
     }
 
-    // --- PEDIDOS (Mantém lógica de sessão por enquanto) ---
-    @GetMapping("/meus-pedidos")
-    @SuppressWarnings("unchecked")
-    public String meusPedidos(@RequestParam(required = false) Boolean sucesso, HttpSession session, Model model) {
-        Usuario u = (Usuario) session.getAttribute("usuarioLogado");
-        if(u != null) model.addAttribute("usuarioLogado", u.getNome());
+    // --- EXCLUIR CONTA ---
+    @GetMapping("/usuarios/deletar")
+    public String deletarConta(HttpSession session) {
+        Usuario usuarioSessao = (Usuario) session.getAttribute("usuarioLogado");
+        if (usuarioSessao != null) {
+            usuarioRepository.deleteById(usuarioSessao.getId());
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
 
-        if (sucesso != null && sucesso) model.addAttribute("mensagem", "Compra realizada com sucesso!");
+    // --- MEUS PEDIDOS (CORRIGIDO) ---
+    @GetMapping("/meus-pedidos")
+    public String meusPedidos(@RequestParam(required = false) Boolean sucesso, HttpSession session, Model model) {
+        // 1. Pega o usuário logado
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        if (usuario == null) return "redirect:/login";
         
-        List<PedidoDTO> pedidos = (List<PedidoDTO>) session.getAttribute("meusPedidos");
-        if (pedidos == null) pedidos = new ArrayList<>();
+        model.addAttribute("usuarioLogado", usuario.getNome());
+
+        if (sucesso != null && sucesso) {
+            model.addAttribute("mensagem", "Compra realizada com sucesso!");
+        }
+        
+        // 2. BUSCA REAL NO BANCO DE DADOS
+        // O erro acontecia porque aqui estava buscando da "session" (DTO antigo)
+        // Agora buscamos do "repository" (Entidade nova com itensResumo)
+        List<Pedido> pedidos = pedidoRepository.findByUsuario(usuario);
         
         model.addAttribute("listaPedidos", pedidos);
+        
         return "usuarios/meus-pedidos";
     }
 }

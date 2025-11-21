@@ -1,11 +1,12 @@
 package br.edu.ifrn.gamespher.web.controladores;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,24 +15,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.edu.ifrn.gamespher.persistencia.modelo.Jogo;
-import br.edu.ifrn.gamespher.persistencia.modelo.Hardware;
 import br.edu.ifrn.gamespher.persistencia.modelo.Colecionavel;
-import br.edu.ifrn.gamespher.persistencia.repositorio.JogoRepository;
-import br.edu.ifrn.gamespher.persistencia.repositorio.HardwareRepository;
+import br.edu.ifrn.gamespher.persistencia.modelo.Hardware;
+import br.edu.ifrn.gamespher.persistencia.modelo.Jogo;
+import br.edu.ifrn.gamespher.persistencia.modelo.Pedido;
+import br.edu.ifrn.gamespher.persistencia.modelo.Usuario;
 import br.edu.ifrn.gamespher.persistencia.repositorio.ColecionavelRepository;
+import br.edu.ifrn.gamespher.persistencia.repositorio.HardwareRepository;
+import br.edu.ifrn.gamespher.persistencia.repositorio.JogoRepository;
+import br.edu.ifrn.gamespher.persistencia.repositorio.PedidoRepository;
 import br.edu.ifrn.gamespher.web.dto.ItemCarrinho;
-import br.edu.ifrn.gamespher.web.dto.PedidoDTO; // Importamos o novo DTO
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/carrinho")
 public class CarrinhoController {
 
+    // Repositórios para buscar os produtos
     @Autowired private JogoRepository jogoRepo;
     @Autowired private HardwareRepository hardwareRepo;
     @Autowired private ColecionavelRepository colecionavelRepo;
+    
+    // Repositório para salvar o pedido final
+    @Autowired private PedidoRepository pedidoRepository;
 
+    // Exibir o Carrinho
     @GetMapping
     public String verCarrinho(HttpSession session, Model model) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
@@ -39,14 +47,23 @@ public class CarrinhoController {
 
         model.addAttribute("itens", carrinho);
         model.addAttribute("total", total);
+        
+        // Passa o usuário para o menu (navbar)
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        if (usuario != null) {
+            model.addAttribute("usuarioLogado", usuario.getNome());
+        }
+        
         return "carrinho";
     }
 
+    // Adicionar Item ao Carrinho
     @GetMapping("/adicionar/{tipo}/{id}")
     public String adicionarItem(@PathVariable String tipo, @PathVariable Long id, HttpSession session) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
         ItemCarrinho novoItem = null;
 
+        // Lógica para buscar o produto correto baseado no tipo
         if ("jogo".equals(tipo)) {
             Jogo j = jogoRepo.findById(id).orElse(null);
             if (j != null) novoItem = new ItemCarrinho(j.getId(), j.getTitulo(), j.getPreco(), "Jogo", "🎮");
@@ -58,40 +75,63 @@ public class CarrinhoController {
             if (c != null) novoItem = new ItemCarrinho(c.getId(), c.getNome(), c.getPreco(), "Colecionável", "🏆");
         }
 
-        if (novoItem != null) carrinho.add(novoItem);
+        if (novoItem != null) {
+            carrinho.add(novoItem);
+        }
+
         return "redirect:/carrinho";
     }
 
+    // Remover Item do Carrinho
     @GetMapping("/remover/{indice}")
     public String removerItem(@PathVariable int indice, HttpSession session) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
-        if (indice >= 0 && indice < carrinho.size()) carrinho.remove(indice);
+        if (indice >= 0 && indice < carrinho.size()) {
+            carrinho.remove(indice);
+        }
         return "redirect:/carrinho";
     }
 
-    // FINALIZAR COMPRA ATUALIZADO
+    // --- FINALIZAR COMPRA (COM PERSISTÊNCIA NO BANCO) ---
     @GetMapping("/finalizar")
     public String finalizarCompra(HttpSession session) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
-        if (carrinho.isEmpty()) return "redirect:/carrinho";
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-        // 1. Cria o Pedido
+        // Se o carrinho estiver vazio ou usuário não logado, não finaliza
+        if (carrinho.isEmpty() || usuario == null) {
+            return "redirect:/carrinho";
+        }
+
+        // 1. Prepara os dados do pedido
         BigDecimal total = calcularTotal(carrinho);
         String codigo = "PED-" + (1000 + new Random().nextInt(9000));
         String data = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
-        PedidoDTO novoPedido = new PedidoDTO(codigo, data, "R$ " + total.toString(), "Processando");
+        // Cria uma string simples com os nomes dos produtos (ex: "FIFA 24, PS5")
+        String resumoItens = carrinho.stream()
+                .map(ItemCarrinho::getTitulo)
+                .collect(Collectors.joining(", "));
 
-        // 2. Salva na lista de pedidos da sessão
-        List<PedidoDTO> meusPedidos = obterMeusPedidos(session);
-        meusPedidos.add(0, novoPedido); // Adiciona no topo da lista
+        // 2. Cria a Entidade Pedido (para salvar no Banco)
+        Pedido novoPedido = new Pedido();
+        novoPedido.setCodigo(codigo);
+        novoPedido.setData(data);
+        novoPedido.setTotal(total);
+        novoPedido.setStatus("Processando");
+        novoPedido.setItensResumo(resumoItens);
+        novoPedido.setUsuario(usuario); // VINCULA AO USUÁRIO (1:N)
 
-        // 3. Limpa o carrinho
+        // 3. Salva no Banco de Dados
+        pedidoRepository.save(novoPedido);
+
+        // 4. Limpa o carrinho da sessão
         session.removeAttribute("carrinho");
         
         return "redirect:/meus-pedidos?sucesso=true";
     }
 
+    // Métodos Auxiliares
     @SuppressWarnings("unchecked")
     private List<ItemCarrinho> obterCarrinho(HttpSession session) {
         List<ItemCarrinho> carrinho = (List<ItemCarrinho>) session.getAttribute("carrinho");
@@ -102,17 +142,9 @@ public class CarrinhoController {
         return carrinho;
     }
 
-    @SuppressWarnings("unchecked")
-    private List<PedidoDTO> obterMeusPedidos(HttpSession session) {
-        List<PedidoDTO> pedidos = (List<PedidoDTO>) session.getAttribute("meusPedidos");
-        if (pedidos == null) {
-            pedidos = new ArrayList<>();
-            session.setAttribute("meusPedidos", pedidos);
-        }
-        return pedidos;
-    }
-
     private BigDecimal calcularTotal(List<ItemCarrinho> carrinho) {
-        return carrinho.stream().map(ItemCarrinho::getPreco).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return carrinho.stream()
+                .map(ItemCarrinho::getPreco)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

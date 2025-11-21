@@ -1,4 +1,4 @@
--- Tabela de Vendedores (Já existia)
+-- 1. Tabela de Vendedores
 CREATE TABLE IF NOT EXISTS vendedores (
     id_vendedor BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS vendedores (
     cpf VARCHAR(20) UNIQUE NOT NULL 
 );
 
--- Tabela de Jogos (RF.002)
+-- 2. Tabela de Jogos
 CREATE TABLE IF NOT EXISTS jogos (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS jogos (
     ano_lancamento INT
 );
 
--- Tabela de Hardware (Consoles, Acessórios e Periféricos - RF.003)
+-- 3. Tabela de Hardware
 CREATE TABLE IF NOT EXISTS hardware (
     id_hardware BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS hardware (
     preco DECIMAL(10,2) NOT NULL
 );
 
--- Tabela de Colecionáveis (RF.004)
+-- 4. Tabela de Colecionáveis
 CREATE TABLE IF NOT EXISTS colecionaveis (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS colecionaveis (
     preco DECIMAL(10, 2) NOT NULL
 );
 
--- Tabela de Gift Cards (RF.005)
+-- 5. Tabela de Gift Cards
 CREATE TABLE IF NOT EXISTS giftcards (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     plataforma VARCHAR(50) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS giftcards (
     codigo_exemplo VARCHAR(50)
 );
 
--- Tabela de Clientes/Usuários
+-- 6. Tabela de Usuários (Entidade Forte)
 CREATE TABLE IF NOT EXISTS usuarios (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -54,4 +54,16 @@ CREATE TABLE IF NOT EXISTS usuarios (
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(100) NOT NULL,
     telefone VARCHAR(20)
+);
+
+-- 7. Tabela de Pedidos (Entidade Fraca - Relacionamento 1:N)
+CREATE TABLE IF NOT EXISTS pedidos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(50),
+    data_pedido VARCHAR(20),
+    total DECIMAL(10, 2),
+    status VARCHAR(50),
+    itens_resumo TEXT,
+    usuario_id BIGINT, -- Chave Estrangeira
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
