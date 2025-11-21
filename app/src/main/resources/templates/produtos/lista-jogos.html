@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogos - GameSpher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #4A006A, #000080, #A00000) !important; background-attachment: fixed !important; min-height: 100vh; display: flex; flex-direction: column; }
+        .custom-container { background-color: #ffffff; border-radius: 15px; padding: 40px; margin-top: 30px; margin-bottom: 30px; color: #212529 !important; }
+        .custom-container h2 { color: #212529 !important; text-shadow: none !important; }
+        .card { border: none; transition: transform 0.3s; background: white; }
+        .card:hover { transform: translateY(-5px); }
+        .card-body h5, .card-body p, .card-body h4 { color: #212529 !important; text-shadow: none !important; }
+        .card-header-img { height: 140px; display: flex; align-items: center; justify-content: center; }
+        .bg-jogos { background: linear-gradient(135deg, #000080, #4169E1); }
+        .bg-secondary { background: #6c757d; }
+        .navbar-custom, .footer-custom { background-color: #fff !important; border-bottom: 4px solid #4A006A; }
+        .footer-custom { border-bottom: none; border-top: 4px solid #4A006A; padding: 20px 0; margin-top: auto; }
+        .footer-custom a { color: #4A006A !important; text-decoration: none; font-weight: 700; }
+        .navbar-brand { color: #4A006A !important; font-weight: 800; }
+        .nav-link { color: #212529 !important; font-weight: 700; }
+        .btn-secondary-custom { background-color: #6A008A; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: navbar}"></div>
+    <div class="container custom-container" style="max-width: 1200px;">
+        <h2 class="mb-4 fw-bold">Catálogo de Jogos</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" th:each="jogo : ${jogos}">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header-img" th:classappend="${jogo.plataforma == 'PlayStation 5' ? 'bg-jogos' : 'bg-secondary'}">
+                        <span class="text-white fs-1">🎮</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${jogo.titulo}"></h5>
+                        <p class="card-text text-muted"><span th:text="${jogo.plataforma}"></span> • <span th:text="${jogo.anoLancamento}"></span></p>
+                        <h4 class="text-primary fw-bold">R$ <span th:text="${#numbers.formatDecimal(jogo.preco, 1, 2, 'COMMA')}"></span></h4>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3">
+                        <a th:href="@{/carrinho/adicionar/jogo/{id}(id=${jogo.id})}" class="btn btn-outline-primary w-100">Adicionar ao Carrinho</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 text-center"><a href="/" class="btn btn-secondary-custom">Voltar</a></div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

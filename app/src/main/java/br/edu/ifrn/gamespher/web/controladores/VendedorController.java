@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/vendedores") // Define o caminho base do módulo
-public class VendedorControler {
+public class VendedorController {
 
     @Autowired
     private VendedorRepository vendedorRepository; // Injeta o repositório para acesso ao banco

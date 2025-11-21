@@ -1,0 +1,162 @@
+/* src/main/resources/static/css/style.css */
+
+/* --- Estilos Globais --- */
+body {
+    /* O Gradiente que você pediu */
+    background: linear-gradient(135deg, #4A006A, #000080, #A00000);
+    background-attachment: fixed; /* Fundo fixo para não cortar ao rolar */
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #ffffff; /* Texto global branco */
+}
+
+/* Títulos Brancos */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* --- Navegação (Navbar) --- */
+.navbar-custom {
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    padding: 15px 0;
+    position: relative;
+    z-index: 1000;
+    border-bottom: 4px solid #4A006A;
+}
+.navbar-brand {
+    font-weight: 800;
+    color: #4A006A !important;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.nav-link {
+    color: #212529 !important;
+    font-weight: 600;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+.nav-link:hover {
+    color: #A00000 !important;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+/* --- Botão Catálogo Melhorado --- */
+.btn-catalogo-premium {
+    background: linear-gradient(45deg, #FFD700, #FFA500); /* Dourado/Laranja vibrante */
+    color: #4A006A !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px 40px;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); /* Sombra dourada */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-catalogo-premium:hover {
+    transform: translateY(-3px) scale(1.05); /* Aumenta levemente e sobe */
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
+    color: #4A006A !important;
+    background: linear-gradient(45deg, #FFEA00, #FFB700);
+}
+
+/* --- Containers (Fundo Branco) --- */
+.custom-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    margin-top: 20px;
+    color: #212529; /* Texto preto dentro dos boxes brancos */
+    animation: fadeIn 0.8s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Forçar texto escuro dentro dos containers brancos */
+.custom-container h1, .custom-container h2, .custom-container h3, 
+.custom-container label, .custom-container td, .custom-container th {
+    color: #343a40;
+}
+
+/* --- Cards --- */
+.card-destaque, .card {
+    border: none;
+    border-radius: 15px;
+    background: white;
+    overflow: hidden;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+.card:hover { transform: translateY(-10px); }
+.card-body, .card-title { color: #212529 !important; }
+.text-muted { color: #6c757d !important; }
+
+/* Headers dos Cards */
+.card-header-img {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bg-jogos { background: linear-gradient(45deg, #000080, #4169E1); }
+.bg-consoles { background: linear-gradient(45deg, #A00000, #FF4500); }
+.bg-colecionaveis { background: linear-gradient(45deg, #4A006A, #9932CC); }
+.bg-secondary { background-color: #6c757d !important; }
+
+/* Botões Gerais */
+.btn-login-nav {
+    background-color: #000080;
+    color: white !important;
+    border-radius: 50px;
+    padding: 8px 25px !important;
+}
+.btn-custom-save {
+    background-color: #DC3545;
+    border-color: #DC3545;
+    color: #ffffff;
+}
+.btn-secondary-custom {
+    background-color: #6A008A;
+    border-color: #6A008A;
+    color: white;
+}
+.container-form { max-width: 600px; margin: 0 auto; }
+.container-list { max-width: 1000px; margin: 0 auto; }
+
+/* Dropdown */
+.dropdown-menu {
+    border-top: 4px solid #A00000;
+}
+.dropdown-item { color: #212529; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    h1 { font-size: 1.8em; }
+    .btn { width: 100%; margin-bottom: 10px; }
+    .custom-container { padding: 25px; }
+    .table-responsive-mobile thead { display: none; }
+    .table-responsive-mobile tr { display: block; margin-bottom: 15px; border: 1px solid #dee2e6; padding: 10px; }
+    .table-responsive-mobile td { display: block; text-align: right; position: relative; padding-left: 50%; }
+    .table-responsive-mobile td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+    }
+}

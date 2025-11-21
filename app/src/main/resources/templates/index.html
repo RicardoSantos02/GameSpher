@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Início - GameSpher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* GLOBAL */
+        body { background: linear-gradient(135deg, #4A006A, #000080, #A00000) !important; background-attachment: fixed !important; font-family: 'Inter', sans-serif; min-height: 100vh; margin: 0; display: flex; flex-direction: column; }
+        h1, h2, h3, p.lead { color: #ffffff !important; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
+        
+        /* NAVBAR & FOOTER (Brancos) */
+        .navbar-custom, .footer-custom { background-color: #ffffff !important; border-bottom: 4px solid #4A006A; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .footer-custom { border-bottom: none; border-top: 4px solid #4A006A; padding: 20px 0; margin-top: auto; }
+        .footer-custom a { color: #4A006A !important; text-decoration: none; font-weight: 700; }
+        .footer-custom a:hover { color: #A00000 !important; }
+        
+        .navbar-brand { font-weight: 800; color: #4A006A !important; font-size: 1.8rem; text-transform: uppercase; }
+        .nav-link { color: #212529 !important; font-weight: 700; margin-left: 10px; }
+        .nav-link:hover { color: #A00000 !important; background-color: #f0f0f0; border-radius: 5px; }
+        .btn-login-nav { background-color: #000080; color: white !important; border-radius: 50px; padding: 8px 25px; }
+        .dropdown-menu { border-top: 4px solid #A00000; } .dropdown-item { color: #212529 !important; }
+
+        /* ELEMENTOS */
+        .btn-catalogo-premium { background: linear-gradient(90deg, #FFD700, #FFA500); color: #4A006A !important; font-weight: 900; text-transform: uppercase; padding: 15px 40px; border-radius: 50px; text-decoration: none; display: inline-block; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); margin-top: 20px; }
+        .btn-catalogo-premium:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+        
+        .card-destaque { background: #ffffff !important; border-radius: 15px; border: none; transition: transform 0.3s; }
+        .card-destaque:hover { transform: translateY(-10px); }
+        .card-body h5, .card-body p, .card-body a { color: #212529 !important; text-shadow: none !important; }
+        .card-header-img { height: 140px; display: flex; align-items: center; justify-content: center; }
+        .bg-jogos { background: linear-gradient(135deg, #000080, #4169E1); }
+        .bg-consoles { background: linear-gradient(135deg, #A00000, #FF4500); }
+        .bg-colecionaveis { background: linear-gradient(135deg, #4A006A, #9932CC); }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: navbar}"></div>
+
+    <div class="container" style="margin-top: 60px; margin-bottom: 60px;">
+        <div class="text-center mb-5">
+            <h1 class="display-3 fw-bold mb-3">Bem-vindo ao GameSpher 🎮</h1>
+            <p class="lead fs-4 mb-5">Sua jornada para o próximo nível começa aqui.</p>
+            <a href="/produtos/jogos" class="btn-catalogo-premium">Ver Catálogo Completo</a>
+        </div>
+        <h2 class="text-center mb-4 mt-5">Explore por Categoria</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card card-destaque">
+                    <div class="card-header-img bg-jogos"><span class="text-white fs-1">🎮</span></div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Jogos Físicos e Digitais</h5>
+                        <p class="card-text small">Lançamentos e clássicos.</p>
+                        <a href="/produtos/jogos" class="btn btn-outline-primary w-100">Ver Jogos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-destaque">
+                    <div class="card-header-img bg-consoles"><span class="text-white fs-1">🖥️</span></div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Consoles e Periféricos</h5>
+                        <p class="card-text small">Equipamentos de alta performance.</p>
+                        <a href="/produtos/hardware" class="btn btn-outline-danger w-100">Ver Hardware</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-destaque">
+                    <div class="card-header-img bg-colecionaveis"><span class="text-white fs-1">🏆</span></div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Colecionáveis</h5>
+                        <p class="card-text small">Itens raros e exclusivos.</p>
+                        <a href="/produtos/colecionaveis" class="btn btn-outline-dark w-100">Ver Colecionáveis</a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
