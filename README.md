@@ -8,8 +8,8 @@ O GameSpher é uma loja especializada no universo gamer, oferecendo uma ampla se
 
 ### Interação-1: Cadastro de Produtos
 
-- **Jogos Físicos e Digitais** – Os títulos mais populares para consoles e PC, incluindo lançamentos e clássicos.  
-- **Consoles e Acessórios** – PlayStation, Xbox, Nintendo Switch e seus respectivos controles, headsets e kits de personalização.  
-- **Periféricos para PC** – Teclados mecânicos, mouses gamer, monitores de alta resolução e cadeiras ergonômicas.  
-- **Colecionáveis e Itens Exclusivos** – Action figures, camisetas, pôsteres e edições especiais de franquias famosas.  
-- **Gift Cards e Créditos Digitais** – Cartões-presente para plataformas como Steam, PlayStation Store e Xbox Live.  
+ **Jogos Físicos e Digitais** – Os títulos mais populares para consoles e PC, incluindo lançamentos e clássicos.  
+ **Consoles e Acessórios** – PlayStation, Xbox, Nintendo Switch e seus respectivos controles, headsets e kits de personalização.  
+ **Periféricos para PC** – Teclados mecânicos, mouses gamer, monitores de alta resolução e cadeiras ergonômicas.  
+ **Colecionáveis e Itens Exclusivos** – Action figures, camisetas, pôsteres e edições especiais de franquias famosas.  
+ **Gift Cards e Créditos Digitais** – Cartões-presente para plataformas como Steam, PlayStation Store e Xbox Live.  

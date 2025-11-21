@@ -1,3 +1,0 @@
-A logo e o favicon do projeto GameSpher não foram encontrados no repositório. O requisito é substituir o emoji de controle pela imagem da nova logo.
-
-Aguardando a imagem da nova logo para prosseguir com a implementação do requisito 2.2 (Logo e Favicon). Por enquanto, a implementação do projeto continuará, mas este requisito será marcado como pendente.
