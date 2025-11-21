@@ -2,27 +2,117 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- Versão do modelo POM usado pelo Maven -->
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- Herda configurações do Spring Boot Starter Parent -->
+
+
+	<!-- Identificação do seu projeto -->
 	<groupId>br.edu.ifrn</groupId>
-	<artifactId>gamespher-parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>GameSpher Parent</name>
+	<artifactId>gamespher</artifactId> <!-- Seu projeto -->
+	<version>0.0.1-SNAPSHOT</version> <!-- Versão inicial -->
+	<name>GameSpher App</name>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.0</version>
-		<relativePath />
+		<groupId>br.edu.ifrn</groupId>
+		<artifactId>gamespher-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<properties>
-		<java.version>17</java.version>
-	</properties>
+	<!-- Propriedades do projeto -->
 
-	<modules>
-		<module>app</module>
-	</modules>
+
+	<!-- Dependências do projeto -->
+	<dependencies>
+		<!-- Actuator: monitoramento da aplicação -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!-- Spring Web MVC para construir APIs e aplicações web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Spring Data JPA para acesso a banco de dados -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Banco de dados em memória H2 para desenvolvimento/testes -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope> <!-- Só roda em tempo de execução -->
+		</dependency>
+
+		<!-- Thymeleaf: motor de templates para views HTML -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Validação via Bean Validation (JSR 380) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- Spring Security: para autenticação e autorização -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- Thymeleaf Extras Spring Security: para tags de segurança no Thymeleaf -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+
+		<!-- Lombok: para reduzir código repetitivo (getters/setters) -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.38</version> <!-- Versão do Lombok -->
+			<scope>provided</scope> <!-- Não entra no pacote final -->
+		</dependency>
+	</dependencies>
+
+	<!-- Configurações de build -->
+	<build>
+		<plugins>
+			<!-- Plugin oficial do Spring Boot para empacotamento -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Plugin do Maven Compiler para compilar código Java -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>17</source> <!-- Versão do Java fonte -->
+					<target>17</target> <!-- Versão de destino da compilação -->
+
+					<!-- Configura o Lombok para funcionar na compilação -->
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.38</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
