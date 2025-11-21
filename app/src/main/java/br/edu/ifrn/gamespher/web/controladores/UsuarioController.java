@@ -3,78 +3,92 @@ package br.edu.ifrn.gamespher.web.controladores;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.edu.ifrn.gamespher.persistencia.modelo.Usuario;
+import br.edu.ifrn.gamespher.persistencia.repositorio.UsuarioRepository;
 import br.edu.ifrn.gamespher.web.dto.PedidoDTO;
-import br.edu.ifrn.gamespher.web.dto.UsuarioDTO;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsuarioController {
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    // --- CADASTRO REAL ---
+    @GetMapping("/usuarios/novo")
+    public String novoUsuario() {
+        return "usuarios/formulario-usuario";
+    }
+
+    @PostMapping("/usuarios/novo")
+    public String salvarUsuario(Usuario usuario) {
+        // Salva o novo cliente no banco de dados
+        usuarioRepository.save(usuario);
+        return "redirect:/login";
+    }
+
+    // --- PERFIL REAL ---
     @GetMapping("/perfil")
     public String perfil(HttpSession session, Model model) {
-        // Verifica/Cria o usuário na sessão
-        UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("dadosUsuario");
-        if (usuario == null) {
-            usuario = new UsuarioDTO("Ricardo Santos", "ricardo@email.com", "(84) 99999-8888");
-            session.setAttribute("dadosUsuario", usuario);
-        }
+        Usuario usuarioSessao = (Usuario) session.getAttribute("usuarioLogado");
         
-        // Passa o objeto para a tela preencher os campos
-        model.addAttribute("usuario", usuario);
+        if (usuarioSessao == null) return "redirect:/login";
+
+        // Recarrega do banco para garantir dados atualizados
+        Usuario usuarioAtualizado = usuarioRepository.findById(usuarioSessao.getId()).orElse(usuarioSessao);
         
-        // Mantém o nome no menu superior
-        session.setAttribute("usuarioLogado", usuario.getNome());
-        model.addAttribute("usuarioLogado", usuario.getNome());
+        model.addAttribute("usuario", usuarioAtualizado);
+        model.addAttribute("usuarioLogado", usuarioAtualizado.getNome());
         
         return "usuarios/perfil";
     }
 
     @PostMapping("/perfil/salvar")
-    public String salvarPerfil(
-            @RequestParam String nome,
-            @RequestParam String email,
-            @RequestParam String telefone,
-            @RequestParam String senha, // Recebe a senha
-            HttpSession session,
-            Model model) {
+    public String salvarPerfil(@ModelAttribute Usuario usuarioForm, @RequestParam String senhaConfirmacao, HttpSession session) {
+        Usuario usuarioSessao = (Usuario) session.getAttribute("usuarioLogado");
+        
+        if (usuarioSessao == null) return "redirect:/login";
 
-        // Simulação de verificação de senha
-        if (!"123".equals(senha)) {
+        // Valida a senha atual para permitir edição
+        if (!usuarioSessao.getSenha().equals(senhaConfirmacao)) {
             return "redirect:/perfil?erro=senha";
         }
 
-        // Atualiza os dados na sessão (Memória)
-        UsuarioDTO usuario = new UsuarioDTO(nome, email, telefone);
-        session.setAttribute("dadosUsuario", usuario);
-        session.setAttribute("usuarioLogado", nome); // Atualiza nome no menu
+        // Atualiza os dados
+        Usuario usuarioBanco = usuarioRepository.findById(usuarioSessao.getId()).get();
+        usuarioBanco.setNome(usuarioForm.getNome());
+        usuarioBanco.setEmail(usuarioForm.getEmail());
+        usuarioBanco.setTelefone(usuarioForm.getTelefone());
+        
+        usuarioRepository.save(usuarioBanco);
+        
+        // Atualiza a sessão
+        session.setAttribute("usuarioLogado", usuarioBanco);
 
         return "redirect:/perfil?sucesso=true";
     }
 
+    // --- PEDIDOS (Mantém lógica de sessão por enquanto) ---
     @GetMapping("/meus-pedidos")
     @SuppressWarnings("unchecked")
     public String meusPedidos(@RequestParam(required = false) Boolean sucesso, HttpSession session, Model model) {
-        verificarLogin(session, model);
-        
-        if (sucesso != null && sucesso) {
-            model.addAttribute("mensagem", "Compra realizada com sucesso!");
-        }
+        Usuario u = (Usuario) session.getAttribute("usuarioLogado");
+        if(u != null) model.addAttribute("usuarioLogado", u.getNome());
+
+        if (sucesso != null && sucesso) model.addAttribute("mensagem", "Compra realizada com sucesso!");
         
         List<PedidoDTO> pedidos = (List<PedidoDTO>) session.getAttribute("meusPedidos");
         if (pedidos == null) pedidos = new ArrayList<>();
         
         model.addAttribute("listaPedidos", pedidos);
-        
         return "usuarios/meus-pedidos";
-    }
-    
-    private void verificarLogin(HttpSession session, Model model) {
-        model.addAttribute("usuarioLogado", session.getAttribute("usuarioLogado"));
     }
 }

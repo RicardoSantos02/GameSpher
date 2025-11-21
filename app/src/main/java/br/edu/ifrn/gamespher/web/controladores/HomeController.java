@@ -1,67 +1,60 @@
 package br.edu.ifrn.gamespher.web.controladores;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.edu.ifrn.gamespher.persistencia.modelo.Usuario;
+import br.edu.ifrn.gamespher.persistencia.repositorio.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     // Página Inicial
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
-        // Pega o usuário da sessão (se existir)
-        model.addAttribute("usuarioLogado", session.getAttribute("usuarioLogado"));
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        model.addAttribute("usuarioLogado", usuario != null ? usuario.getNome() : null);
         return "index";
     }
 
-    // Página de Login (agora aceita parâmetro ?tipo=vendedor)
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String tipo, Model model) {
-        model.addAttribute("tipoLogin", tipo); // Passa para a view se quiser personalizar o título
+    public String login() {
         return "login";
     }
 
-    // Processar Login (SIMULAÇÃO)
+    // --- LÓGICA DE LOGIN REAL ---
     @PostMapping("/login")
-    public String processarLogin(HttpSession session) {
-        // SIMULA que o usuário "Ricardo" logou com sucesso
-        session.setAttribute("usuarioLogado", "Ricardo");
-        return "redirect:/";
+    public String processarLogin(@RequestParam String email, @RequestParam String senha, HttpSession session, Model model) {
+        // 1. Busca o usuário no banco pelo email
+        Usuario usuario = usuarioRepository.findByEmail(email);
+
+        // 2. Verifica se existe e se a senha bate
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            session.setAttribute("usuarioLogado", usuario); // Salva o OBJETO inteiro na sessão
+            return "redirect:/";
+        }
+
+        // 3. Se falhar, volta pro login com erro (você pode adicionar msg de erro no HTML depois)
+        return "redirect:/login?erro=true";
     }
 
-    // Rota de Logout
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate(); // Destrói a sessão
+        session.invalidate();
         return "redirect:/";
     }
 
-    // Rota para Produtos (Redireciona para jogos)
     @GetMapping("/produtos")
-    public String produtos() {
-        return "redirect:/produtos/jogos";
-    }
+    public String produtos() { return "redirect:/produtos/jogos"; }
 
     @GetMapping("/contato")
-    public String contato(Model model, HttpSession session) {
-        model.addAttribute("usuarioLogado", session.getAttribute("usuarioLogado"));
-        return "contato";
-    }
-    
-    // Cadastro
-    @GetMapping("/usuarios/novo")
-    public String novoUsuario(Model model, HttpSession session) {
-        model.addAttribute("usuarioLogado", session.getAttribute("usuarioLogado"));
-        return "usuarios/formulario-usuario";
-    }
-
-    @PostMapping("/usuarios/novo")
-    public String salvarUsuario() {
-        return "redirect:/login";
-    }
+    public String contato() { return "contato"; }
 }

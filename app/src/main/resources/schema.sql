@@ -45,3 +45,13 @@ CREATE TABLE IF NOT EXISTS giftcards (
     valor DECIMAL(10, 2) NOT NULL,
     codigo_exemplo VARCHAR(50)
 );
+
+-- Tabela de Clientes/Usuários
+CREATE TABLE IF NOT EXISTS usuarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(20),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20)
+);
