@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS vendedores (
     cpf VARCHAR(20) UNIQUE NOT NULL 
 );
 
--- 2. Tabela de Jogos (Atualizada)
+-- 2. Tabela de Jogos (Atualizado para TEXT)
 CREATE TABLE IF NOT EXISTS jogos (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
@@ -15,12 +15,12 @@ CREATE TABLE IF NOT EXISTS jogos (
     tipo VARCHAR(20) CHECK (tipo IN ('Físico', 'Digital')),
     preco DECIMAL(10, 2) NOT NULL,
     ano_lancamento INT,
-    descricao TEXT, -- Novo
-    imagem_url VARCHAR(500), -- Novo
-    loja_url VARCHAR(500) -- Novo (Link externo)
+    descricao TEXT,
+    imagem_url TEXT, -- Aceita URLs de qualquer tamanho
+    loja_url TEXT    -- Aceita URLs de qualquer tamanho
 );
 
--- 3. Tabela de Hardware (Atualizada)
+-- 3. Tabela de Hardware (Atualizado para TEXT)
 CREATE TABLE IF NOT EXISTS hardware (
     id_hardware BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS hardware (
     plataforma VARCHAR(50),
     descricao TEXT,
     preco DECIMAL(10,2) NOT NULL,
-    imagem_url VARCHAR(500), -- Novo
-    loja_url VARCHAR(500) -- Novo
+    imagem_url TEXT, -- Mudado para TEXT
+    loja_url TEXT    -- Mudado para TEXT
 );
 
--- 4. Tabela de Colecionáveis (Atualizada)
+-- 4. Tabela de Colecionáveis (Atualizado para TEXT)
 CREATE TABLE IF NOT EXISTS colecionaveis (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS colecionaveis (
     tipo_item VARCHAR(50),
     edicao_exclusiva BOOLEAN DEFAULT FALSE,
     preco DECIMAL(10, 2) NOT NULL,
-    descricao TEXT, -- Novo
-    imagem_url VARCHAR(500), -- Novo
-    loja_url VARCHAR(500) -- Novo
+    descricao TEXT,
+    imagem_url TEXT, -- Mudado para TEXT
+    loja_url TEXT    -- Mudado para TEXT
 );
 
 -- 5. Tabela de Gift Cards
@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     cpf VARCHAR(20),
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(100) NOT NULL,
-    telefone VARCHAR(20)
+    telefone VARCHAR(20),
+    tipo VARCHAR(20) DEFAULT 'CLIENTE'
 );
 
 -- 7. Tabela de Pedidos

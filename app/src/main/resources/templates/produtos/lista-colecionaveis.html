@@ -6,18 +6,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background: linear-gradient(135deg, #4A006A, #000080, #A00000) !important; background-attachment: fixed !important; min-height: 100vh; display: flex; flex-direction: column; }
-        .custom-container { background-color: #ffffff; border-radius: 15px; padding: 40px; margin-top: 30px; margin-bottom: 30px; color: #212529 !important; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .custom-container h2, .card-body h5, .card-body p, .card-body h4 { color: #212529 !important; text-shadow: none !important; }
-        .card { border: none; transition: transform 0.3s; height: 100%; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-        .card-img-custom { height: 200px; object-fit: cover; width: 100%; border-bottom: 1px solid #eee; }
-        
-        .navbar-custom, .footer-custom { background-color: #fff !important; border-bottom: 4px solid #4A006A; }
-        .footer-custom { border-bottom: none; border-top: 4px solid #4A006A; padding: 20px 0; margin-top: auto; }
-        .footer-custom a { color: #4A006A !important; text-decoration: none; font-weight: 700; }
+        .navbar-custom { background-color: #ffffff !important; border-bottom: 4px solid #4A006A; padding: 15px 0; }
         .navbar-brand { color: #4A006A !important; font-weight: 800; font-size: 1.5rem; }
-        .nav-link { color: #212529 !important; font-weight: 700; }
+        .nav-link { color: #212529 !important; font-weight: 700; margin-left: 10px; }
         .btn-login-nav { background-color: #000080; color: white !important; border-radius: 50px; }
+        
+        .custom-container { background-color: #ffffff; border-radius: 15px; padding: 40px; margin: 40px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: #212529; }
+        .card { border: none; transition: transform 0.3s; background: white; height: 100%; }
+        .card:hover { transform: translateY(-5px); }
+        .card-img-top-custom { height: 220px; width: 100%; object-fit: cover; border-bottom: 1px solid #eee; }
+        .card-body { color: #212529; text-align: center; display: flex; flex-direction: column; }
+        .card-title { font-weight: 800; color: #6A008A; margin-bottom: 10px; }
+        h2 { color: #212529 !important; text-shadow: none !important; }
+        
+        .footer-custom { background-color: #ffffff !important; border-top: 4px solid #4A006A; padding: 20px 0; margin-top: auto; }
         .btn-secondary-custom { background-color: #6A008A; color: white; border: none; }
     </style>
 </head>
@@ -25,34 +27,25 @@
     <div th:replace="~{fragments/nav :: navbar}"></div>
 
     <div class="container custom-container" style="max-width: 1200px;">
-        <h2 class="mb-4 fw-bold">Colecionáveis</h2>
+        <h2 class="mb-4 fw-bold text-center">Colecionáveis</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col" th:each="item : ${colecionaveis}">
-                <div class="card h-100 shadow-sm">
-                    
-                    <img th:src="${item.imagemUrl}" class="card-img-custom" alt="Foto Colecionável">
-                    
-                    <div class="card-body d-flex flex-column">
+                <div class="card shadow-sm">
+                    <img th:src="${item.imagemUrl}" class="card-img-top-custom" alt="Colecionável">
+                    <div class="card-body">
                         <h5 class="card-title" th:text="${item.nome}"></h5>
-                        <p class="card-text text-muted mb-2">
-                            <span class="fw-bold">Franquia:</span> <span th:text="${item.franquia}"></span>
-                        </p>
-                        <div class="mb-2" th:if="${item.edicaoExclusiva}"><span class="badge bg-warning text-dark">✨ Edição Exclusiva</span></div>
-                        
+                        <p class="mb-2"><span class="badge bg-warning text-dark" th:if="${item.edicaoExclusiva}">✨ Exclusivo</span> <span class="badge bg-light text-dark border" th:text="${item.franquia}"></span></p>
                         <p class="card-text small flex-grow-1" th:text="${item.descricao}"></p>
-                        
-                        <h4 class="text-primary fw-bold" style="color: #4A006A !important;">R$ <span th:text="${#numbers.formatDecimal(item.preco, 1, 2, 'COMMA')}"></span></h4>
-                    </div>
-                    <div class="card-footer bg-white border-0 pb-3">
+                        <h4 class="text-primary fw-bold mb-3" style="color: #6A008A !important;">R$ <span th:text="${#numbers.formatDecimal(item.preco, 1, 2, 'COMMA')}"></span></h4>
                         <div class="d-grid gap-2">
-                            <a th:href="@{/carrinho/adicionar/colecionavel/{id}(id=${item.id})}" class="btn btn-outline-dark">Adicionar ao Carrinho</a>
-                            <a th:href="${item.lojaUrl}" target="_blank" class="btn btn-sm btn-outline-secondary">Visitar Loja Oficial 🔗</a>
+                            <a th:href="@{/carrinho/adicionar/colecionavel/{id}(id=${item.id})}" class="btn btn-dark fw-bold">Adicionar ao Carrinho</a>
+                            <a th:href="${item.lojaUrl}" target="_blank" class="btn btn-sm btn-outline-secondary">Ver na Loja Oficial 🔗</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4 text-center"><a href="/" class="btn btn-secondary-custom">Voltar ao Início</a></div>
+        <div class="mt-5 text-center"><a href="/" class="btn btn-secondary-custom btn-lg px-5">Voltar ao Início</a></div>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
