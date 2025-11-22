@@ -1,0 +1,36 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="256" cy="256" r="250" fill="#000080" fill-opacity="0.1"/>
+
+    <circle cx="256" cy="256" r="180" fill="#000040"/>
+
+    <path d="M256 100 C220 100 180 140 160 190 C160 190 190 170 210 180 C210 180 200 220 190 240 C220 210 256 180 256 180 C256 180 290 210 322 240 C312 220 302 180 302 180 C322 170 352 190 352 190 C332 140 292 100 256 100 Z" fill="#008080" stroke="#00FFFF" stroke-width="5"/>
+
+    <path d="M210 260 L240 275 L210 280 Z" fill="#00FFFF" filter="url(#glow)"/>
+    <path d="M302 260 L272 275 L302 280 Z" fill="#00FFFF" filter="url(#glow)"/>
+
+    <path d="M256 460 C380 460 480 360 480 236 C480 150 430 80 360 50 L380 80 C430 120 450 180 450 236 C450 340 365 425 256 425 C150 425 65 340 65 236 C65 180 85 120 135 80 L155 50 C85 80 35 150 35 236 C35 360 135 460 256 460 Z" fill="url(#gradienteCapa)" stroke="#800000" stroke-width="2"/>
+
+    <circle cx="256" cy="435" r="35" fill="url(#gradienteOuro)" stroke="#B8860B" stroke-width="3"/>
+    <circle cx="256" cy="435" r="25" fill="none" stroke="#B8860B" stroke-width="2"/>
+    <path d="M256 415 L256 455 M236 435 L276 435" stroke="#B8860B" stroke-width="3"/>
+
+    <defs>
+        <linearGradient id="gradienteCapa" x1="35" y1="236" x2="480" y2="460" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#A00000"/>
+            <stop offset="1" stop-color="#600000"/>
+        </linearGradient>
+
+        <linearGradient id="gradienteOuro" x1="221" y1="400" x2="291" y2="470" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FFD700"/>
+            <stop offset="1" stop-color="#FFA500"/>
+        </linearGradient>
+
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+</svg>

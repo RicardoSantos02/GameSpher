@@ -4,35 +4,77 @@
     <meta charset="UTF-8">
     <title>Login - GameSpher</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
     <style>
-        body { background: linear-gradient(135deg, #4A006A, #000080, #A00000) !important; background-attachment: fixed !important; min-height: 100vh; display: flex; flex-direction: column; }
-        .custom-container { background-color: #ffffff; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #212529 !important; }
-        .custom-container h2, .custom-container label, .custom-container a { color: #212529 !important; text-shadow: none !important; }
-        /* Navbar & Footer Styles */
-        .navbar-custom, .footer-custom { background-color: #fff !important; border-bottom: 4px solid #4A006A; }
-        .footer-custom { border-bottom: none; border-top: 4px solid #4A006A; padding: 20px 0; margin-top: auto; }
+        /* GLOBAL */
+        body { 
+            background: linear-gradient(135deg, #4A006A, #000080, #A00000) !important; 
+            background-attachment: fixed !important; 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        /* --- CSS DO MENU (NAVBAR) COMPLETO --- */
+        .navbar-custom { background-color: #ffffff !important; border-bottom: 4px solid #4A006A; padding: 15px 0; }
+        .navbar-brand { color: #4A006A !important; font-weight: 800; font-size: 1.5rem; text-transform: uppercase; }
+        .nav-link { color: #212529 !important; font-weight: 700; margin-left: 10px; }
+        .nav-link:hover { color: #A00000 !important; background-color: #f0f0f0; border-radius: 5px; }
+        .dropdown-menu { border-top: 4px solid #A00000; }
+        .dropdown-item { color: #212529 !important; }
+        .dropdown-item:hover { background-color: #f0f0f0; }
+        /* Botão Entrar */
+        .btn-login-nav { background-color: #000080 !important; color: white !important; border-radius: 50px; padding: 8px 25px; }
+
+        /* CONTEÚDO LOGIN */
+        .custom-container { 
+            background-color: #ffffff; 
+            border-radius: 15px; 
+            padding: 40px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+            color: #212529 !important; 
+        }
+        .custom-container h2, .custom-container label, .custom-container a { 
+            color: #212529 !important; 
+            text-shadow: none !important; 
+        }
+        
+        /* FOOTER */
+        .footer-custom { background-color: #ffffff !important; border-top: 4px solid #4A006A; padding: 20px 0; margin-top: auto; }
         .footer-custom a { color: #4A006A !important; text-decoration: none; font-weight: 700; }
-        .navbar-brand { color: #4A006A !important; font-weight: 800; }
-        .nav-link { color: #212529 !important; font-weight: 700; }
-        .btn-login-nav { background-color: #000080; color: white !important; border-radius: 50px; }
     </style>
 </head>
 <body>
     <div th:replace="~{fragments/nav :: navbar}"></div>
+
     <div class="container d-flex justify-content-center align-items-center flex-grow-1">
         <div class="custom-container" style="max-width: 400px; width: 100%; text-align: center;">
             <h2 class="mb-4" style="color: #000080 !important;">Acessar Conta</h2>
+            
             <form action="/login" method="post">
-                <div class="mb-3 text-start"><label class="form-label">Email</label><input type="email" class="form-control" name="email"></div>
-                <div class="mb-3 text-start"><label class="form-label">Senha</label><input type="password" class="form-control" name="senha"></div>
-                <div class="d-grid gap-2 mt-4"><button type="submit" class="btn btn-login-nav w-100">Entrar</button></div>
+                <div class="mb-3 text-start">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="seu@email.com">
+                </div>
+                <div class="mb-3 text-start">
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-control" name="senha" placeholder="********">
+                </div>
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn" style="background-color: #000080; color: white; border-radius: 50px;">Entrar</button>
+                </div>
             </form>
+            
             <div class="mt-3 d-flex justify-content-between small">
                 <a href="#" class="text-decoration-none text-secondary">Esqueci a senha</a>
                 <a href="/usuarios/novo" class="text-decoration-none fw-bold text-danger">Criar conta</a>
             </div>
         </div>
     </div>
+
     <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
