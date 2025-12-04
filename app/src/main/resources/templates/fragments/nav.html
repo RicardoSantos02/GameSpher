@@ -1,19 +1,7 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-custom">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-            <svg width="40" height="40" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="256" cy="256" r="250" fill="#000080" fill-opacity="0.1" />
-                <circle cx="256" cy="256" r="180" fill="#000040" />
-                <path
-                    d="M256 100 C220 100 180 140 160 190 C160 190 190 170 210 180 C210 180 200 220 190 240 C220 210 256 180 256 180 C256 180 290 210 322 240 C312 220 302 180 302 180 C322 170 352 190 352 190 C332 140 292 100 256 100 Z"
-                    fill="#008080" stroke="#00FFFF" stroke-width="5" />
-                <path d="M210 260 L240 275 L210 280 Z" fill="#00FFFF" />
-                <path d="M302 260 L272 275 L302 280 Z" fill="#00FFFF" />
-                <path
-                    d="M256 460 C380 460 480 360 480 236 C480 150 430 80 360 50 L380 80 C430 120 450 180 450 236 C450 340 365 425 256 425 C150 425 65 340 65 236 C65 180 85 120 135 80 L155 50 C85 80 35 150 35 236 C35 360 135 460 256 460 Z"
-                    fill="#A00000" stroke="#800000" stroke-width="2" />
-                <circle cx="256" cy="435" r="35" fill="#FFD700" stroke="#B8860B" stroke-width="3" />
-            </svg>
+            <img th:src="@{/imagens/logo.svg}" alt="Logo GameSpher" width="40" height="40">
             <span style="font-weight: 900; letter-spacing: 1px; color: #4A006A; font-size: 1.5rem;">GAMESPHER</span>
         </a>
 
@@ -24,6 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Produtos</a>
                     <ul class="dropdown-menu">
@@ -32,32 +21,31 @@
                         <li><a class="dropdown-item" href="/produtos/colecionaveis">Colecionáveis</a></li>
                     </ul>
                 </li>
+                
+                <li class="nav-item" th:if="${usuarioLogado != null}">
+                     <a class="nav-link text-danger fw-bold" href="/gerencia/jogos">⚙️ Gerenciar</a>
+                </li>
+                
                 <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
 
                 <li class="nav-item dropdown ms-2" th:if="${usuarioLogado == null}">
-                    <a class="nav-link btn-login-nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        style="color: white !important;">Entrar</a>
+                    <a class="nav-link btn-login-nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: white !important;">Entrar</a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/login?tipo=cliente">Sou Cliente</a></li>
                         <li><a class="dropdown-item" href="/login?tipo=vendedor">Sou Vendedor</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item small fw-bold" href="/usuarios/novo">Criar Conta</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown ms-2" th:if="${usuarioLogado != null}">
-                    <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown"
-                        style="color: #000080 !important;">
+                    <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" style="color: #000080 !important;">
                         👤 <span th:text="${usuarioLogado}">Perfil</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/perfil">Meu Perfil</a></li>
                         <li><a class="dropdown-item" href="/meus-pedidos">Meus Pedidos</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item text-danger" href="/logout">Sair</a></li>
                     </ul>
                 </li>

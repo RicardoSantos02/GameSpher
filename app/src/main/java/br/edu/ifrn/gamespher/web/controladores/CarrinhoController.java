@@ -31,15 +31,11 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/carrinho")
 public class CarrinhoController {
 
-    // Repositórios para buscar os produtos
     @Autowired private JogoRepository jogoRepo;
     @Autowired private HardwareRepository hardwareRepo;
     @Autowired private ColecionavelRepository colecionavelRepo;
-    
-    // Repositório para salvar o pedido final
     @Autowired private PedidoRepository pedidoRepository;
 
-    // Exibir o Carrinho
     @GetMapping
     public String verCarrinho(HttpSession session, Model model) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
@@ -48,7 +44,6 @@ public class CarrinhoController {
         model.addAttribute("itens", carrinho);
         model.addAttribute("total", total);
         
-        // Passa o usuário para o menu (navbar)
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
         if (usuario != null) {
             model.addAttribute("usuarioLogado", usuario.getNome());
@@ -57,16 +52,15 @@ public class CarrinhoController {
         return "carrinho";
     }
 
-    // Adicionar Item ao Carrinho
     @GetMapping("/adicionar/{tipo}/{id}")
     public String adicionarItem(@PathVariable String tipo, @PathVariable Long id, HttpSession session) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
         ItemCarrinho novoItem = null;
 
-        // Lógica para buscar o produto correto baseado no tipo
+        // IMPORTANTE: Aqui usamos .getNome() pois padronizamos na classe Produto
         if ("jogo".equals(tipo)) {
             Jogo j = jogoRepo.findById(id).orElse(null);
-            if (j != null) novoItem = new ItemCarrinho(j.getId(), j.getTitulo(), j.getPreco(), "Jogo", "🎮");
+            if (j != null) novoItem = new ItemCarrinho(j.getId(), j.getNome(), j.getPreco(), "Jogo", "🎮");
         } else if ("hardware".equals(tipo)) {
             Hardware h = hardwareRepo.findById(id).orElse(null);
             if (h != null) novoItem = new ItemCarrinho(h.getId(), h.getNome(), h.getPreco(), "Hardware", "🖥️");
@@ -82,7 +76,6 @@ public class CarrinhoController {
         return "redirect:/carrinho";
     }
 
-    // Remover Item do Carrinho
     @GetMapping("/remover/{indice}")
     public String removerItem(@PathVariable int indice, HttpSession session) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
@@ -92,46 +85,37 @@ public class CarrinhoController {
         return "redirect:/carrinho";
     }
 
-    // --- FINALIZAR COMPRA (COM PERSISTÊNCIA NO BANCO) ---
     @GetMapping("/finalizar")
     public String finalizarCompra(HttpSession session) {
         List<ItemCarrinho> carrinho = obterCarrinho(session);
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-        // Se o carrinho estiver vazio ou usuário não logado, não finaliza
         if (carrinho.isEmpty() || usuario == null) {
             return "redirect:/carrinho";
         }
 
-        // 1. Prepara os dados do pedido
         BigDecimal total = calcularTotal(carrinho);
         String codigo = "PED-" + (1000 + new Random().nextInt(9000));
         String data = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
-        // Cria uma string simples com os nomes dos produtos (ex: "FIFA 24, PS5")
         String resumoItens = carrinho.stream()
                 .map(ItemCarrinho::getTitulo)
                 .collect(Collectors.joining(", "));
 
-        // 2. Cria a Entidade Pedido (para salvar no Banco)
         Pedido novoPedido = new Pedido();
         novoPedido.setCodigo(codigo);
         novoPedido.setData(data);
         novoPedido.setTotal(total);
         novoPedido.setStatus("Processando");
         novoPedido.setItensResumo(resumoItens);
-        novoPedido.setUsuario(usuario); // VINCULA AO USUÁRIO (1:N)
+        novoPedido.setUsuario(usuario);
 
-        // 3. Salva no Banco de Dados
         pedidoRepository.save(novoPedido);
-
-        // 4. Limpa o carrinho da sessão
         session.removeAttribute("carrinho");
         
         return "redirect:/meus-pedidos?sucesso=true";
     }
 
-    // Métodos Auxiliares
     @SuppressWarnings("unchecked")
     private List<ItemCarrinho> obterCarrinho(HttpSession session) {
         List<ItemCarrinho> carrinho = (List<ItemCarrinho>) session.getAttribute("carrinho");
