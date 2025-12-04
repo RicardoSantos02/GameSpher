@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Início - GameSpher</title>
@@ -19,9 +20,16 @@
             padding: 0;
             color: #ffffff !important;
         }
-        h1, h2, h3, h4, h5, h6, .lead {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .lead {
             color: #ffffff !important;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
         }
 
         /* --- MENU (NAVBAR) --- */
@@ -31,6 +39,7 @@
             padding: 15px 0;
             border-bottom: 4px solid #4A006A;
         }
+
         .navbar-brand {
             font-weight: 800;
             color: #4A006A !important;
@@ -39,19 +48,28 @@
             letter-spacing: 1px;
             text-shadow: none !important;
         }
+
         .nav-link {
             color: #212529 !important;
             font-weight: 700;
             margin-left: 10px;
             text-shadow: none !important;
         }
+
         .nav-link:hover {
             color: #A00000 !important;
             background-color: #f0f0f0;
             border-radius: 5px;
         }
-        .dropdown-menu { border-top: 4px solid #A00000; }
-        .dropdown-item { color: #212529 !important; text-shadow: none !important; }
+
+        .dropdown-menu {
+            border-top: 4px solid #A00000;
+        }
+
+        .dropdown-item {
+            color: #212529 !important;
+            text-shadow: none !important;
+        }
 
         /* --- BOTÃO CATÁLOGO (PREMIUM) --- */
         .btn-catalogo-premium {
@@ -67,6 +85,7 @@
             margin-top: 20px;
             border: none !important;
         }
+
         .btn-catalogo-premium:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
@@ -79,25 +98,34 @@
             border-radius: 15px;
             border: none;
             transition: transform 0.3s;
-            overflow: hidden; /* Garante que a imagem não saia do card */
+            overflow: hidden;
+            /* Garante que a imagem não saia do card */
         }
-        .card-destaque:hover { transform: translateY(-10px); }
-        
+
+        .card-destaque:hover {
+            transform: translateY(-10px);
+        }
+
         /* Texto PRETO dentro dos cards */
-        .card-body h5, .card-body p, .card-body a, .card-body span {
+        .card-body h5,
+        .card-body p,
+        .card-body a,
+        .card-body span {
             color: #212529 !important;
             text-shadow: none !important;
         }
-        
+
         /* --- NOVA CLASSE PARA IMAGENS DAS CATEGORIAS --- */
         /* Ajusta a imagem para preencher o topo do card perfeitamente */
         .card-category-img {
             width: 100%;
-            height: 180px; /* Altura fixa para ficarem iguais */
-            object-fit: cover; /* Corta a imagem para preencher sem esticar */
+            height: 180px;
+            /* Altura fixa para ficarem iguais */
+            object-fit: cover;
+            /* Corta a imagem para preencher sem esticar */
             border-bottom: 1px solid #eee;
         }
-        
+
         /* Botão Login no Menu */
         .btn-login-nav {
             background-color: #000080;
@@ -107,8 +135,23 @@
             text-decoration: none;
             text-shadow: none !important;
         }
+
+        /* FOOTER */
+        .footer-custom {
+            background-color: #ffffff !important;
+            border-top: 4px solid #4A006A;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+
+        .footer-custom a {
+            color: #4A006A !important;
+            text-decoration: none;
+            font-weight: 700;
+        }
     </style>
 </head>
+
 <body>
 
     <div th:replace="~{fragments/nav :: navbar}"></div>
@@ -123,11 +166,12 @@
         <h2 class="text-center mb-4 mt-5">Explore por Categoria</h2>
 
         <div class="row g-4">
-            
+
             <div class="col-md-4">
                 <div class="card card-destaque">
-                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1000&auto=format&fit=crop" class="card-category-img" alt="Jogos">
-                    
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1000&auto=format&fit=crop"
+                        class="card-category-img" alt="Jogos">
+
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">Jogos Físicos e Digitais</h5>
                         <p class="card-text small">Os últimos lançamentos e clássicos para todas as plataformas.</p>
@@ -138,8 +182,9 @@
 
             <div class="col-md-4">
                 <div class="card card-destaque">
-                    <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?q=80&w=1000&auto=format&fit=crop" class="card-category-img" alt="Hardware">
-                    
+                    <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?q=80&w=1000&auto=format&fit=crop"
+                        class="card-category-img" alt="Hardware">
+
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">Consoles e Periféricos</h5>
                         <p class="card-text small">Consoles next-gen, controles, teclados e muito mais.</p>
@@ -150,8 +195,9 @@
 
             <div class="col-md-4">
                 <div class="card card-destaque">
-                    <img src="https://sw6.elbenwald.de/thumbnail/12/10/29/1686436954/E1075829_3_1600x1600.jpg" class="card-category-img" alt="Colecionáveis">
-                    
+                    <img src="https://sw6.elbenwald.de/thumbnail/12/10/29/1686436954/E1075829_3_1600x1600.jpg"
+                        class="card-category-img" alt="Colecionáveis">
+
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">Colecionáveis</h5>
                         <p class="card-text small">Action figures e itens raros para sua coleção.</p>
@@ -160,9 +206,11 @@
                 </div>
             </div>
 
-        </div> 
+        </div>
     </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
