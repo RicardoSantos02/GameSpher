@@ -25,4 +25,9 @@ public abstract class Produto {
 
     @Column(name = "loja_url", columnDefinition = "TEXT")
     private String lojaUrl;
+
+    // --- O CAMPO QUE FALTAVA ---
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 }

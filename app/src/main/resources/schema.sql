@@ -1,16 +1,26 @@
+-- 1. Tabela de Categorias (Lado 1 - Entidade Forte)
+CREATE TABLE IF NOT EXISTS categorias (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    grupo VARCHAR(50) -- Serve para filtrar (JOGO, HARDWARE, COLECIONAVEL)
+);
+
+-- 2. Tabela Base de Produtos (Lado N - Entidade Fraca)
 CREATE TABLE IF NOT EXISTS produtos (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     descricao TEXT,
     preco DECIMAL(10, 2) NOT NULL,
     imagem_url TEXT,
-    loja_url TEXT
+    loja_url TEXT,
+    categoria_id BIGINT, -- A Chave Estrangeira que liga 1:N
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
 
+-- 3. Tabelas Específicas (Herança)
 CREATE TABLE IF NOT EXISTS jogos (
     id BIGINT PRIMARY KEY,
     plataforma VARCHAR(50),
-    tipo VARCHAR(20),
     ano_lancamento INT,
     FOREIGN KEY (id) REFERENCES produtos(id) ON DELETE CASCADE
 );
@@ -18,20 +28,18 @@ CREATE TABLE IF NOT EXISTS jogos (
 CREATE TABLE IF NOT EXISTS hardware (
     id BIGINT PRIMARY KEY,
     fabricante VARCHAR(100),
-    categoria VARCHAR(50),
-    plataforma VARCHAR(50),
+    plataforma VARCHAR(50), -- Compatibilidade
     FOREIGN KEY (id) REFERENCES produtos(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS colecionaveis (
     id BIGINT PRIMARY KEY,
     franquia VARCHAR(100),
-    tipo_item VARCHAR(50),
     edicao_exclusiva BOOLEAN,
     FOREIGN KEY (id) REFERENCES produtos(id) ON DELETE CASCADE
 );
 
--- Tabelas auxiliares
+-- 4. Tabelas do Sistema (Vendedores, Usuários, Pedidos) - MANTIDAS
 CREATE TABLE IF NOT EXISTS vendedores (
     id_vendedor BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
